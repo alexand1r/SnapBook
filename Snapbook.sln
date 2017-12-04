@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapbook.Data", "Snapbook.Data\Snapbook.Data.csproj", "{21B60A88-A544-4814-8679-93BB7AA41CDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapbook.Web", "Snapbook.Web\Snapbook.Web.csproj", "{B6D50248-0C91-4804-8914-08E4250CB5B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21B60A88-A544-4814-8679-93BB7AA41CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B60A88-A544-4814-8679-93BB7AA41CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B60A88-A544-4814-8679-93BB7AA41CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B60A88-A544-4814-8679-93BB7AA41CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D50248-0C91-4804-8914-08E4250CB5B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D50248-0C91-4804-8914-08E4250CB5B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D50248-0C91-4804-8914-08E4250CB5B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D50248-0C91-4804-8914-08E4250CB5B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD1B4E4C-D3F5-43B2-B9AA-113047770C9F}
+	EndGlobalSection
+EndGlobal

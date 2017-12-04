@@ -1,0 +1,9 @@
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\bin\Debug\netstandard2.0\Snapbook.Data.deps.json
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\bin\Debug\netstandard2.0\Snapbook.Data.dll
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\obj\Debug\netstandard2.0\Snapbook.Data.csprojResolveAssemblyReference.cache
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\obj\Debug\netstandard2.0\Snapbook.Data.csproj.CoreCompileInputs.cache
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\obj\Debug\netstandard2.0\Snapbook.Data.AssemblyInfoInputs.cache
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\obj\Debug\netstandard2.0\Snapbook.Data.AssemblyInfo.cs
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\bin\Debug\netstandard2.0\Snapbook.Data.pdb
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\obj\Debug\netstandard2.0\Snapbook.Data.dll
+C:\softuni\C# MVC Framework - ASP.NET Core\Snapbook\Snapbook\Snapbook.Data\obj\Debug\netstandard2.0\Snapbook.Data.pdb
