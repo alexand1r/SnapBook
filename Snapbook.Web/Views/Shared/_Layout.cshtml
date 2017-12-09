@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Snapbook</title>
+    <title>@ViewData["Title"] | Snapbook</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -31,26 +31,50 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (User.IsInRole(WebConstants.AdministratorRole))
+                    {
+                        <li><a asp-area="Admin" asp-controller="Users" asp-action="AdminPanel">Admin Panel</a></li>
+                    }
+                    @if (User.IsInRole(WebConstants.UserRole))
+                    {
+                        <li><a asp-area="User" asp-controller="Users" asp-action="CreateAlbum">Create New Album</a></li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Users" asp-action="Profile" asp-route-username="@User.Identity.Name">Profile</a></li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - Snapbook.Web</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessage))
+    {
+        <div class="alert alert-success">
+            @TempData[WebConstants.TempDataSuccessMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.TempDataErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @TempData[WebConstants.TempDataErrorMessage]
+        </div>
+    }
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; 2017 - Snapbook.Web</p>
+    </footer>
+</div>
+
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+</environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"

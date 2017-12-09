@@ -1,11 +1,10 @@
 ﻿namespace Snapbook.Data.Migrations
 {
-    using System;
-    using Data;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
     using Microsoft.EntityFrameworkCore.Metadata;
     using Microsoft.EntityFrameworkCore.Migrations;
+    using System;
 
     [DbContext(typeof(SnapbookDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
@@ -124,7 +123,7 @@
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Snapbook.Web.Models.User", b =>
+            modelBuilder.Entity("WebApplication1.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id");
 
@@ -183,7 +182,7 @@
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Snapbook.Web.Models.User")
+                    b.HasOne("WebApplication1.Models.ApplicationUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -191,7 +190,7 @@
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Snapbook.Web.Models.User")
+                    b.HasOne("WebApplication1.Models.ApplicationUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -204,7 +203,7 @@
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Snapbook.Web.Models.User")
+                    b.HasOne("WebApplication1.Models.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

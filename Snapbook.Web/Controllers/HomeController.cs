@@ -1,30 +1,39 @@
 ﻿namespace Snapbook.Web.Controllers
 {
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
-    using Snapbook.Web.Models;
+    using Models;
+    using Services;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
+    using Snapbook.Data.Models;
+    using Snapbook.Web.Models.Photos;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IPhotoService photos;
+        private readonly UserManager<User> userManager;
+
+        public HomeController(
+            IPhotoService photos,
+            UserManager<User> userManager)
         {
-            return this.View();
+            this.photos = photos;
+            this.userManager = userManager;
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Index()
         {
-            this.ViewData["Message"] = "Your application description page.";
+            var pics = await this.photos.All();
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            return this.View();
+            return this.View(new PhotoHomeListingViewModel
+            {
+                Photos = pics,
+                User = user
+            });
         }
-
-        public IActionResult Contact()
-        {
-            this.ViewData["Message"] = "Your contact page.";
-
-            return this.View();
-        }
-
+      
         public IActionResult Error()
         {
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });

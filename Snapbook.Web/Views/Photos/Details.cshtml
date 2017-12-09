@@ -1,0 +1,120 @@
+﻿@model PhotoDetailsViewModel
+@{
+    ViewData["Title"] = "Photo Details";
+}
+
+<h2>Details</h2>
+
+<a href="http://maps.google.com/?q=@Model.Photo.Latitude,@Model.Photo.Longitude" class="text-primary">@Model.Photo.Location</a>
+
+<img src="@Model.Photo.ImageUrl" width="100" alt="@Model.Photo.ImageUrl"/>
+
+<h4>@Model.Photo.PublishDate.ToShortDateString() by @Model.Photo.Author</h4>
+
+<div id="ajaxLink">
+    @if (Model.User != null)// && Model.User.UserName != Model.Photo.Author)
+    {
+        if (!Model.CanLike)
+        {
+            <a asp-controller="Photos" asp-action="Like" asp-route-photoId="@Model.Photo.Id"
+               data-ajax="true" 
+               data-ajax-method="POST"
+               data-ajax-update="#likeResults"
+               data-ajax-mode="replace"
+               data-ajax-success="ajaxLikeSuccess" 
+               data-ajax-error="ajaxLikeError"
+            >Like</a>
+        }
+        else
+        {
+            <a asp-controller="Photos" asp-action="Unlike" asp-route-photoid="@Model.Photo.Id"
+               data-ajax="true" 
+               data-ajax-method="POST"
+               data-ajax-update="#likeResults"
+               data-ajax-mode="replace"
+               data-ajax-success="ajaxUnlikeSuccess" 
+               data-ajax-error="ajaxUnlikeError"
+            >Unlike</a>
+        }
+    }
+</div>
+
+<div id="likeResults">
+    @Html.Partial("_Likes", Model.Photo.Likes)
+</div>
+
+<h3>@Model.Photo.Description</h3>
+
+@if (Model.Photo.Tags.Any())
+{
+    foreach (var tag in Model.Photo.Tags)
+    {
+        <span>#@tag.Content </span>
+    }
+}
+
+<div id="results">
+    @Html.Partial("_Comments", Model.Photo.Comments.OrderByDescending(c => c.PublishDate))
+</div>
+
+<div>
+    <form asp-controller="Photos" asp-action="Comment" asp-route-photoid="@Model.Photo.Id"
+          data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-update="#results"
+          data-ajax-mode="replace"
+          data-ajax-success="ajaxSuccess" 
+          data-ajax-error="ajaxError"
+          id="commentForm">
+        <textarea class="form-control" name="Content" placeholder="Write a comment..."></textarea>
+        <div>
+            <input type="submit" class="read btn btn-default" value="Post"/>
+        </div>
+    </form>
+</div>
+
+<script>
+    var ajaxSuccess = function() {
+        $('#commentForm')
+            .each(function() {
+                this.reset();
+            });
+    }
+    var ajaxError = function() {
+        alert('Error: Comment not saved.');
+    }
+
+    var ajaxLikeSuccess = function () {
+        $('#ajaxLink').empty();
+
+        $('#ajaxLink')
+            .html('<a href="/photos/unlike?photoid=@Model.Photo.Id" ' +
+                'data-ajax="true" ' + 
+                'data-ajax-method="POST" ' +
+                'data-ajax-update="#likeResults" ' +
+                'data-ajax-mode="replace" ' +
+                'data-ajax-success="ajaxUnlikeSuccess" ' +
+                'data-ajax-error="ajaxUnlikeError" ' +
+                '>Unlike</a>');
+    }
+    var ajaxLikeError = function () {
+        alert('Error: Could not like.');
+    }
+
+    var ajaxUnlikeSuccess = function () {
+        $('#ajaxLink').empty();
+
+        $('#ajaxLink')
+            .html('<a href="/photos/like?photoid=@Model.Photo.Id" ' +
+                'data-ajax="true" ' +
+                'data-ajax-method="POST" ' +
+                'data-ajax-update="#likeResults" ' +
+                'data-ajax-mode="replace" ' +
+                'data-ajax-success="ajaxLikeSuccess" ' +
+                'data-ajax-error="ajaxLikeError" ' +
+                '>Like</a>');
+    }
+    var ajaxUnlikeError = function () {
+        alert('Error: Could not unlike.');
+    }
+</script>

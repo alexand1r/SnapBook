@@ -3615,11 +3615,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Data\\Snapbook.Data.csproj",
+      "projectUniqueName": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Data\\Snapbook.Data.csproj",
       "projectName": "Snapbook.Data",
-      "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Data\\Snapbook.Data.csproj",
+      "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Data\\Snapbook.Data.csproj",
       "packagesPath": "C:\\Users\\s1231\\.nuget\\packages\\",
-      "outputPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Data\\obj\\",
+      "outputPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

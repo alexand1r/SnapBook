@@ -1,0 +1,31 @@
+﻿@model AlbumDetailsServiceModel
+@{
+    ViewData["Title"] = $"Album {Model.Title}";
+}
+
+<h2>@Model.Title</h2>
+<h4>@Model.CategoryName</h4>
+<h4>by @Model.Username</h4>
+<h3>@Model.Description</h3>
+
+<a class="btn btn-success" asp-area="User" asp-controller="Albums" asp-action="AddPhoto" asp-route-albumid="@Model.Id">Add New Photo</a>
+
+@if (Model.Photos.Any())
+{
+    foreach (var photo in Model.Photos)
+    {
+        <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
+            <div>
+                <img src="@photo.ImageUrl" width="100" alt="@photo.ImageUrl"/>
+                @photo.PublishDate.ToShortDateString()
+                @photo.Likes Likes
+                @photo.Comments Comments
+            </div>
+        </a>
+        <br/>
+    }
+}
+else
+{
+    <h3>This album has no photos yet.</h3>
+}

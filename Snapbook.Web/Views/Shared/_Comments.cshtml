@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CommentServiceModel>
+
+@if (Model.Any())
+{ 
+    foreach (var comment in Model)
+    {
+        <div>
+            @if (comment.Author != null)
+            {
+                <h6>@comment.Author - @comment.PublishDate.ToString("MMMM dd, yyyy")</h6>
+            }
+            else
+            {
+                <h6>Anonymous User - @comment.PublishDate.ToString("MMMM dd, yyyy")</h6>
+            }
+            <h5>@comment.Content</h5>
+        </div>
+    }
+}
+else
+{
+    <div>
+        <p>
+            <h5>(no comments)</h5>
+        </p>
+    </div>
+}

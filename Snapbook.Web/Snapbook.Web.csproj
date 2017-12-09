@@ -7,8 +7,10 @@
 
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
   </ItemGroup>
 
@@ -19,7 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Snapbook.Common\Snapbook.Common.csproj" />
     <ProjectReference Include="..\Snapbook.Data\Snapbook.Data.csproj" />
+    <ProjectReference Include="..\Snapbook.Services\Snapbook.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Advertiser\Controllers\" />
+    <Folder Include="Areas\Advertiser\Data\" />
+    <Folder Include="Areas\Advertiser\Models\" />
+    <Folder Include="Areas\Advertiser\Views\" />
   </ItemGroup>
 
 </Project>

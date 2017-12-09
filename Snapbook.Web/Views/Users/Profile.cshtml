@@ -1,0 +1,34 @@
+﻿@model UserProfileServiceModel
+@{
+    ViewData["Title"] = $"{Model.Username} Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>@Model.Name - @Model.Username - @Model.BirthDate.ToShortDateString()</h3>
+
+<table class="table table-bordered table-bordered">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Publish Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var album in Model.Albums)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id">@album.Title</a>
+            </td>
+            <td>
+                @album.CategoryName
+            </td>
+            <td>
+                @album.PublishDate.ToShortDateString()
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

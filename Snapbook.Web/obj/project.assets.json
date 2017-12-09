@@ -2,6 +2,45 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "AutoMapper/6.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "NETStandard.Library": "1.6.1",
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Specialized": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Linq.Queryable": "4.3.0",
+          "System.Reflection.Emit": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "6.1.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
+          "Microsoft.Extensions.DependencyModel": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
+      "jQuery/1.8.0": {
+        "type": "package"
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -2422,6 +2461,12 @@
           "lib/netstandard1.4/Microsoft.IdentityModel.Tokens.dll": {}
         }
       },
+      "Microsoft.jQuery.Unobtrusive.Ajax/3.2.3": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.8.0"
+        }
+      },
       "Microsoft.Net.Http.Headers/2.0.1": {
         "type": "package",
         "dependencies": {
@@ -3895,17 +3940,17 @@
           "lib/netstandard1.3/System.Linq.Parallel.dll": {}
         }
       },
-      "System.Linq.Queryable/4.0.1": {
+      "System.Linq.Queryable/4.3.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.11",
-          "System.Diagnostics.Debug": "4.0.11",
-          "System.Linq": "4.1.0",
-          "System.Linq.Expressions": "4.1.0",
-          "System.Reflection": "4.1.0",
-          "System.Reflection.Extensions": "4.0.1",
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0"
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Linq.Expressions": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.0/System.Linq.Queryable.dll": {}
@@ -5030,6 +5075,19 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "Snapbook.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "6.2.1"
+        },
+        "compile": {
+          "bin/placeholder/Snapbook.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Snapbook.Common.dll": {}
+        }
+      },
       "Snapbook.Data/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -5043,10 +5101,67 @@
         "runtime": {
           "bin/placeholder/Snapbook.Data.dll": {}
         }
+      },
+      "Snapbook.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Snapbook.Common": "1.0.0",
+          "Snapbook.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Snapbook.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Snapbook.Services.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "AutoMapper/6.2.1": {
+      "sha512": "ZD9he/2wsNQbfnZJMc7Ijvz0hf2Lc6R8Tk97k8Q741flowTHd/YPxG8d5P0BVOJAPLVXjjX6IZ8l0u0A2l+K2g==",
+      "type": "package",
+      "path": "automapper/6.2.1",
+      "files": [
+        "automapper.6.2.1.nupkg.sha512",
+        "automapper.nuspec",
+        "lib/net40/AutoMapper.dll",
+        "lib/net40/AutoMapper.xml",
+        "lib/net45/AutoMapper.dll",
+        "lib/net45/AutoMapper.xml",
+        "lib/netstandard1.1/AutoMapper.dll",
+        "lib/netstandard1.1/AutoMapper.xml",
+        "lib/netstandard1.3/AutoMapper.dll",
+        "lib/netstandard1.3/AutoMapper.xml"
+      ]
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/3.2.0": {
+      "sha512": "528nEpAwniNn8Z6Ae9qTiM/kN4f0BxmWE9mDMEkqKKGxbuElmv6Kj9DVvTXECJkIt6ARerb9+vYbOifNpcwvXQ==",
+      "type": "package",
+      "path": "automapper.extensions.microsoft.dependencyinjection/3.2.0",
+      "files": [
+        "automapper.extensions.microsoft.dependencyinjection.3.2.0.nupkg.sha512",
+        "automapper.extensions.microsoft.dependencyinjection.nuspec",
+        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "jQuery/1.8.0": {
+      "sha512": "laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
+      "type": "package",
+      "path": "jquery/1.8.0",
+      "files": [
+        "Content/Scripts/jquery-1.8.0-vsdoc.js",
+        "Content/Scripts/jquery-1.8.0.js",
+        "Content/Scripts/jquery-1.8.0.min.js",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-1.8.0.intellisense.js",
+        "Tools/uninstall.ps1",
+        "jquery.1.8.0.nupkg.sha512",
+        "jquery.nuspec"
+      ]
+    },
     "Libuv/1.10.0": {
       "sha512": "GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "type": "package",
@@ -7245,6 +7360,17 @@
         "lib/netstandard1.4/Microsoft.IdentityModel.Tokens.xml",
         "microsoft.identitymodel.tokens.5.1.4.nupkg.sha512",
         "microsoft.identitymodel.tokens.nuspec"
+      ]
+    },
+    "Microsoft.jQuery.Unobtrusive.Ajax/3.2.3": {
+      "sha512": "bp8G1m66xaNE9RLm58qk7eXNDlH/yUBc/Dt8dMof/t0hBN3JpUQpPF7pavEVAauPCmcvM90pTrATG8nXbCi9yw==",
+      "type": "package",
+      "path": "microsoft.jquery.unobtrusive.ajax/3.2.3",
+      "files": [
+        "Content/Scripts/jquery.unobtrusive-ajax.js",
+        "Content/Scripts/jquery.unobtrusive-ajax.min.js",
+        "microsoft.jquery.unobtrusive.ajax.3.2.3.nupkg.sha512",
+        "microsoft.jquery.unobtrusive.ajax.nuspec"
       ]
     },
     "Microsoft.Net.Http.Headers/2.0.1": {
@@ -10188,10 +10314,10 @@
         "system.linq.parallel.nuspec"
       ]
     },
-    "System.Linq.Queryable/4.0.1": {
-      "sha512": "Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
+    "System.Linq.Queryable/4.3.0": {
+      "sha512": "In1Bmmvl/j52yPu3xgakQSI0YIckPUr870w4K5+Lak3JCCa8hl+my65lABOuKfYs4ugmZy25ScFerC4nz8+b6g==",
       "type": "package",
-      "path": "system.linq.queryable/4.0.1",
+      "path": "system.linq.queryable/4.3.0",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -10241,7 +10367,7 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.linq.queryable.4.0.1.nupkg.sha512",
+        "system.linq.queryable.4.3.0.nupkg.sha512",
         "system.linq.queryable.nuspec"
       ]
     },
@@ -13120,19 +13246,33 @@
         "windowsazure.storage.nuspec"
       ]
     },
+    "Snapbook.Common/1.0.0": {
+      "type": "project",
+      "path": "../Snapbook.Common/Snapbook.Common.csproj",
+      "msbuildProject": "../Snapbook.Common/Snapbook.Common.csproj"
+    },
     "Snapbook.Data/1.0.0": {
       "type": "project",
       "path": "../Snapbook.Data/Snapbook.Data.csproj",
       "msbuildProject": "../Snapbook.Data/Snapbook.Data.csproj"
+    },
+    "Snapbook.Services/1.0.0": {
+      "type": "project",
+      "path": "../Snapbook.Services/Snapbook.Services.csproj",
+      "msbuildProject": "../Snapbook.Services/Snapbook.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 3.2.0",
       "Microsoft.AspNetCore.All >= 2.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.0",
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.0",
-      "Snapbook.Data >= 1.0.0"
+      "Microsoft.jQuery.Unobtrusive.Ajax >= 3.2.3",
+      "Snapbook.Common >= 1.0.0",
+      "Snapbook.Data >= 1.0.0",
+      "Snapbook.Services >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -13145,11 +13285,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Web\\Snapbook.Web.csproj",
+      "projectUniqueName": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Web\\Snapbook.Web.csproj",
       "projectName": "Snapbook.Web",
-      "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Web\\Snapbook.Web.csproj",
+      "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Web\\Snapbook.Web.csproj",
       "packagesPath": "C:\\Users\\s1231\\.nuget\\packages\\",
-      "outputPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Web\\obj\\",
+      "outputPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13168,8 +13308,14 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Data\\Snapbook.Data.csproj": {
-              "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\Snapbook\\Snapbook\\Snapbook.Data\\Snapbook.Data.csproj"
+            "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Common\\Snapbook.Common.csproj": {
+              "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Common\\Snapbook.Common.csproj"
+            },
+            "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Services\\Snapbook.Services.csproj": {
+              "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Services\\Snapbook.Services.csproj"
+            },
+            "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Data\\Snapbook.Data.csproj": {
+              "projectPath": "C:\\softuni\\C# MVC Framework - ASP.NET Core\\ExamProject\\SnapBook\\Snapbook.Data\\Snapbook.Data.csproj"
             }
           }
         }
@@ -13187,6 +13333,14 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "2.0.0"
+          },
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+            "target": "Package",
+            "version": "3.2.0"
+          },
+          "Microsoft.jQuery.Unobtrusive.Ajax": {
+            "target": "Package",
+            "version": "3.2.3"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "suppressParent": "All",

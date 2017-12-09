@@ -11,22 +11,18 @@
         {
         }
 
+        public DbSet<Ad> Ads { get; set; }
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<UsersLikedImages> UsersLikedImages { get; set; }
+        public DbSet<UsersSavedImages> UsersSavedImages { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Followers - Following
-            builder.Entity<UsersFollowers>()
-                .HasKey(k => new { k.UserId, k.FollowerId });
-
-            builder.Entity<UsersFollowers>()
-                .HasOne(l => l.User)
-                .WithMany(a => a.Followers)
-                .HasForeignKey(l => l.UserId);
-
-            builder.Entity<UsersFollowers>()
-                .HasOne(l => l.Follower)
-                .WithMany(a => a.Following)
-                .HasForeignKey(l => l.FollowerId);
-
             // User - Liked Photos
             builder.Entity<UsersLikedImages>()
                 .HasKey(uli => new { uli.UserId, uli.PhotoId });
@@ -34,12 +30,14 @@
             builder.Entity<UsersLikedImages>()
                 .HasOne(uli => uli.Photo)
                 .WithMany(p => p.Likers)
-                .HasForeignKey(uli => uli.PhotoId);
+                .HasForeignKey(uli => uli.PhotoId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<UsersLikedImages>()
                 .HasOne(uli => uli.User)
                 .WithMany(u => u.LikedPhotos)
-                .HasForeignKey(uli => uli.UserId);
+                .HasForeignKey(uli => uli.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // User - Saved Photos
             builder.Entity<UsersSavedImages>()
@@ -48,18 +46,50 @@
             builder.Entity<UsersSavedImages>()
                 .HasOne(uli => uli.Photo)
                 .WithMany(p => p.Savers)
-                .HasForeignKey(uli => uli.PhotoId);
+                .HasForeignKey(uli => uli.PhotoId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<UsersSavedImages>()
                 .HasOne(uli => uli.User)
                 .WithMany(u => u.SavedPhotos)
-                .HasForeignKey(uli => uli.UserId);
+                .HasForeignKey(uli => uli.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // User - Profile Photos
+            // User - Notifications
+            builder.Entity<Notification>()
+                .HasOne(n => n.User)
+                .WithMany(u => u.Notifications)
+                .HasForeignKey(n => n.UserId);
+
+            // User - Comments
+            builder.Entity<Comment>()
+                .HasOne(c => c.Author)
+                .WithMany(u => u.Comments)
+                .HasForeignKey(c => c.AuthorId);
+
+            // User - Albums
+            builder.Entity<Album>()
+                .HasOne(n => n.User)
+                .WithMany(u => u.Albums)
+                .HasForeignKey(n => n.UserId);
+
+            // User - Ad
+            builder.Entity<User>()
+                .HasOne(u => u.Ad)
+                .WithOne(a => a.User)
+                .HasForeignKey<Ad>(a => a.UserId);
+
+            // Album - Photos
             builder.Entity<Photo>()
-                .HasOne(p => p.Profile)
+                .HasOne(p => p.Album)
                 .WithMany(u => u.Photos)
-                .HasForeignKey(p => p.ProfileId);
+                .HasForeignKey(p => p.AlbumId);
+
+            // Category - Albums
+            builder.Entity<Album>()
+                .HasOne(a => a.Category)
+                .WithMany(c => c.Albums)
+                .HasForeignKey(a => a.CategoryId);
 
             // Ad - Photos
             builder.Entity<Photo>()
@@ -73,11 +103,11 @@
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.PhotoId);
 
-            // User - Notifications
-            builder.Entity<Notification>()
-                .HasOne(n => n.User)
-                .WithMany(u => u.Notifications)
-                .HasForeignKey(n => n.UserId);
+            // Photo - Tags
+            builder.Entity<Tag>()
+                .HasOne(c => c.Photo)
+                .WithMany(p => p.Tags)
+                .HasForeignKey(c => c.PhotoId);
 
             base.OnModelCreating(builder);
         }

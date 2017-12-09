@@ -1,0 +1,89 @@
+﻿@using Snapbook.Services.Implementations
+@model PhotoParcialViewModel
+@inject PhotoService Photos
+
+<div>
+    <a href="http://maps.google.com/?q=@Model.Photo.Latitude,@Model.Photo.Longitude" class="text-primary">@Model.Photo.Location</a>
+
+    <img src="@Model.Photo.ImageUrl" width="100" alt="@Model.Photo.ImageUrl"/>
+
+    <h4>@Model.Photo.PublishDate.ToShortDateString() by @Model.Photo.Author</h4>
+
+    <div id="ajaxLink-@Model.Photo.Id">
+        @if (Model.User != null)// && Model.User.UserName != Model.Photo.Author)
+        {
+            if (!(await Photos.CanLike(Model.User.Id, Model.Photo.Id)))
+            {
+                <a asp-controller="Photos" asp-action="Like" asp-route-photoId="@Model.Photo.Id"
+                   data-ajax="true" 
+                   data-ajax-method="POST"
+                   data-ajax-update="#likeResults-@Model.Photo.Id"
+                   data-ajax-mode="replace"
+                   data-ajax-success="ajaxLikeSuccess_@Model.Photo.Id" 
+                   data-ajax-error="ajaxLikeError_@Model.Photo.Id"
+                >Like</a>
+            }
+            else
+            {
+                <a asp-controller="Photos" asp-action="Unlike" asp-route-photoid="@Model.Photo.Id"
+                   data-ajax="true" 
+                   data-ajax-method="POST"
+                   data-ajax-update="#likeResults-@Model.Photo.Id"
+                   data-ajax-mode="replace"
+                   data-ajax-success="ajaxUnlikeSuccess_@Model.Photo.Id" 
+                   data-ajax-error="ajaxUnlikeError_@Model.Photo.Id"
+                >Unlike</a>
+            }
+        }
+    </div>
+
+    <div id="likeResults-@Model.Photo.Id">
+        @Html.Partial("_Likes", Model.Photo.Likes)
+    </div>
+
+    <h3>@Model.Photo.Description</h3>
+
+    @if (Model.Photo.Tags.Any())
+    {
+        foreach (var tag in Model.Photo.Tags)
+        {
+            <span>#@tag.Content </span>
+        }
+    }
+</div>
+
+<script>
+    var ajaxLikeSuccess_@Model.Photo.Id = function () {
+        $('#ajaxLink-@Model.Photo.Id').empty();
+
+        $('#ajaxLink-@Model.Photo.Id')
+            .html('<a href="/photos/unlike?photoid=@Model.Photo.Id" ' +
+                'data-ajax="true" ' +
+                'data-ajax-method="POST" ' +
+                'data-ajax-update="#likeResults-@Model.Photo.Id" ' +
+                'data-ajax-mode="replace" ' +
+                'data-ajax-success="ajaxUnlikeSuccess_@Model.Photo.Id" ' +
+                'data-ajax-error="ajaxUnlikeError_@Model.Photo.Id" ' +
+                '>Unlike</a>');
+    }
+    var ajaxLikeError_@Model.Photo.Id = function () {
+        alert('Error: Could not like.');
+    }
+
+    var ajaxUnlikeSuccess_@Model.Photo.Id = function () {
+        $('#ajaxLink-@Model.Photo.Id').empty();
+
+        $('#ajaxLink-@Model.Photo.Id')
+            .html('<a href="/photos/like?photoid=@Model.Photo.Id" ' +
+                'data-ajax="true" ' +
+                'data-ajax-method="POST" ' +
+                'data-ajax-update="#likeResults-@Model.Photo.Id" ' +
+                'data-ajax-mode="replace" ' +
+                'data-ajax-success="ajaxLikeSuccess_@Model.Photo.Id" ' +
+                'data-ajax-error="ajaxLikeError_@Model.Photo.Id" ' +
+                '>Like</a>');
+    }
+    var ajaxUnlikeError_@Model.Photo.Id = function () {
+        alert('Error: Could not unlike.');
+    }
+</script>
