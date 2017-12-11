@@ -1,0 +1,59 @@
+﻿@model AdDetailsViewModel
+
+@{
+    ViewData["Title"] = "Ad";
+}
+
+<h2>Ad</h2>
+
+@if (this.User.Identity.Name == Model.Ad.User)
+{
+    <a asp-area="Advertiser" asp-controller="Ad" asp-action="Edit" asp-route-id="@Model.Ad.Id">Edit</a>   
+}
+
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Picture</th>
+        <th>Website</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Ad.Name</td>
+        <td>@Model.Ad.Description</td>
+        <td><img src="@Model.Ad.AdProfilePicUrl" width="150" height="100" /></td>
+        <td><a href="@Model.Ad.Website">@Model.Ad.Website</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<a asp-area="Advertiser" asp-controller="Ad" asp-action="AddPhoto" asp-route-adid="@Model.Ad.Id">Add New Photo</a>
+
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Publish Date</th>
+        <th>Likes</th>
+        <th>Comments</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var photo in Model.Ad.Photos)
+    {
+        <tr>
+            <td>
+                <a asp-area="" asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
+                    <img src="@photo.ImageUrl" width="150" height="100"/>
+                </a>
+            </td>
+            <td>@photo.PublishDate.ToShortDateString()</td>
+            <td>@photo.Likes</td>
+            <td>@photo.Comments</td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,9 +1,12 @@
 ﻿namespace Snapbook.Services.User.Implementations
 {
-    using System;
-    using System.Linq;
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
     using Data;
     using Data.Models;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class UserPhotoService : IUserPhotoService
     {
@@ -13,7 +16,7 @@
         {
             this.db = db;
         }
-        
+
         public void Create(
             string description, 
             string imageUrl, 

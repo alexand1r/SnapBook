@@ -9,6 +9,8 @@
         
         public bool CanLike { get; set; }
 
+        public bool CanSave { get; set; }
+
         public User User { get; set; }
     }
 }

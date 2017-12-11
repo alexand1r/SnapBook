@@ -42,60 +42,69 @@
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await this._userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
             }
 
             var model = new IndexViewModel
             {
                 Username = user.UserName,
+                Name= user.Name,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
+                BirthDate = user.BirthDate,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = this.StatusMessage
             };
 
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IndexViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await this._userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
             }
 
             var email = user.Email;
             if (model.Email != email)
             {
-                var setEmailResult = await _userManager.SetEmailAsync(user, model.Email);
+                var setEmailResult = await this._userManager.SetEmailAsync(user, model.Email);
                 if (!setEmailResult.Succeeded)
                 {
                     throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
                 }
             }
 
-            var phoneNumber = user.PhoneNumber;
-            if (model.PhoneNumber != phoneNumber)
+            var isNameChanged = model.Name != user.Name;
+            var isBDateChanged = model.BirthDate != user.BirthDate;
+
+            if (isNameChanged)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-                }
+                user.Name = model.Name;
             }
 
-            StatusMessage = "Your profile has been updated";
+            if (isBDateChanged)
+            {
+                user.BirthDate = model.BirthDate;
+            }
+
+            if (isNameChanged || isBDateChanged)
+            {
+                await this._userManager.UpdateAsync(user);
+            }
+
+            this.StatusMessage = "Your profile has been updated";
             return this.RedirectToAction(nameof(Index));
         }
 

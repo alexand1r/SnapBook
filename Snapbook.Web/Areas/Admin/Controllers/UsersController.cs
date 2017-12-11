@@ -11,7 +11,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class UsersController : BaseAdminController
+    public class UsersController : BaseController
     {
         private readonly IAdminCategoryService categories;
         private readonly IAdminUserService adminUsers;

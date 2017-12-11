@@ -1,5 +1,6 @@
 ﻿namespace Snapbook.Services.Implementations
 {
+    using System.Collections.Generic;
     using AutoMapper.QueryableExtensions;
     using Data;
     using Microsoft.EntityFrameworkCore;
@@ -22,5 +23,24 @@
                 .Where(a => a.Id == id)
                 .ProjectTo<AlbumDetailsServiceModel>()
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<AlbumListingServiceModel>> Find(string searchText)
+        {
+            if (searchText == null)
+            {
+                return new List<AlbumListingServiceModel>();
+            }
+
+            var albums = await this.db
+                .Albums
+                .OrderByDescending(a => a.Id)
+                .Where(a => a.Description.ToLower().Contains(searchText.ToLower()) 
+                    || a.Category.Name.ToLower().Contains(searchText.ToLower())
+                    || a.Title.ToLower().Contains(searchText.ToLower()))
+                .ProjectTo<AlbumListingServiceModel>()
+                .ToListAsync();
+
+            return albums;
+        }
     }
 }

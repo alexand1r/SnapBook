@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using static Data.DataConstants;
 
     public class RegisterViewModel : IValidatableObject
     {
@@ -14,7 +15,10 @@
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        
+
+        [Required]
+        [MinLength(UserNameMinLength)]
+        [MaxLength(UserNameMaxLength)]
         public string Name { get; set; }
         
         [DataType(DataType.Date)]

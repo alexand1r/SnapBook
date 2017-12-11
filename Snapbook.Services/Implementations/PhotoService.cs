@@ -20,10 +20,62 @@
             this.db = db;
         }
 
+        public async Task<EditPhotoServiceModel> FindForEdit(int id)
+            => await this.db
+                .Photos
+                .Where(p => p.Id == id)
+                .ProjectTo<EditPhotoServiceModel>()
+                .FirstOrDefaultAsync();
+
+        public void Edit(
+            int id,
+            string description,
+            string location,
+            string latitude,
+            string longitude,
+            string tags)
+        {
+            var photo = this.db
+                .Photos
+                .FirstOrDefault(p => p.Id == id);
+
+            if (photo == null)
+            {
+                return;
+            }
+
+            photo.Description = description;
+            photo.Location = location;
+            photo.Latitude = latitude;
+            photo.Longitude = longitude;
+
+            var tagsToDelete = this.db.Tags.Where(t => t.PhotoId == id).ToList();
+
+            foreach (var tag in tagsToDelete)
+            {
+                this.db.Tags.Remove(tag);
+            }
+
+            this.db.SaveChanges();
+
+            var tagsList = tags.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (var t in tagsList)
+            {
+                var tag = new Tag
+                {
+                    Content = t,
+                    PhotoId = photo.Id
+                };
+                this.db.Add(tag);
+            }
+
+            this.db.SaveChanges();
+        }
+
         public async Task<IEnumerable<PhotoHomeServiceModel>> All()
             => await this.db
                 .Photos
-                .Where(p => p.Album != null)
+                //.Where(p => p.Album != null)
                 .OrderByDescending(p => p.Id)
                 .ProjectTo<PhotoHomeServiceModel>()
                 .ToListAsync();
@@ -34,6 +86,25 @@
                 .Where(p => p.Id == id)
                 .ProjectTo<PhotoDetailsServiceModel>()
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<PhotoListingServiceModel>> Find(string searchText)
+        {
+            if (searchText == null)
+            {
+                return new List<PhotoListingServiceModel>();
+            }
+
+            var photos = await this.db
+                .Photos
+                .OrderByDescending(p => p.Id)
+                .Where(p => p.Description.ToLower().Contains(searchText.ToLower())
+                            || p.Tags.Any(t => t.Content.ToLower().Contains(searchText.ToLower()))
+                            || p.Location.ToLower().Contains(searchText.ToLower()))
+                .ProjectTo<PhotoListingServiceModel>()
+                .ToListAsync();
+
+            return photos;
+        }
 
         public async Task<IEnumerable<CommentServiceModel>> Comment(int photoId, string content, string authorId)
         {
@@ -50,7 +121,7 @@
 
             return await this.db
                 .Comments
-                .OrderByDescending(c => c.Id)
+                .Where(c => c.PhotoId == photoId)
                 .ProjectTo<CommentServiceModel>()
                 .ToListAsync();
         }
@@ -86,7 +157,7 @@
             this.db.Add(userLike);
             await this.db.SaveChangesAsync();
 
-            return this.db.UsersLikedImages.Count();
+            return this.db.UsersLikedImages.Count(uli => uli.PhotoId == photoId);
         }
 
         public async Task<int> Unlike(string userId, int photoId)
@@ -113,7 +184,68 @@
             this.db.UsersLikedImages.Remove(userUnlike);
             await this.db.SaveChangesAsync();
 
-            return this.db.UsersLikedImages.Count();
+            return this.db.UsersLikedImages.Count(uli => uli.PhotoId == photoId);
+        }
+
+        public async Task<bool> CanSave(string userId, int photoId)
+            => await this.db
+                .UsersSavedImages
+                .AnyAsync(usi => usi.UserId == userId
+                                 && usi.PhotoId == photoId);
+
+        public async Task<bool> Save(string userId, int photoId)
+        {
+            var photoInfo = await this.db
+                .Photos
+                .Where(p => p.Id == photoId)
+                .Select(p => new
+                {
+                    UserIdHasSaved = p.Savers.Any(u => u.UserId == userId)
+                })
+                .FirstOrDefaultAsync();
+
+            if (photoInfo == null || photoInfo.UserIdHasSaved)
+            {
+                return false;
+            }
+
+            var userSave = new UsersSavedImages
+            {
+                UserId = userId,
+                PhotoId = photoId
+            };
+
+            this.db.Add(userSave);
+            await this.db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> Unsave(string userId, int photoId)
+        {
+            var photoInfo = await this.db
+                .Photos
+                .Where(p => p.Id == photoId)
+                .Select(p => new
+                {
+                    UserIdHasSaved = p.Savers.Any(u => u.UserId == userId)
+                })
+                .FirstOrDefaultAsync();
+
+            if (photoInfo == null || !photoInfo.UserIdHasSaved)
+            {
+                return false;
+            }
+
+            var userUnsave = await this.db
+                .UsersSavedImages
+                .Where(uli => uli.UserId == userId && uli.PhotoId == photoId)
+                .FirstOrDefaultAsync();
+
+            this.db.UsersSavedImages.Remove(userUnsave);
+            await this.db.SaveChangesAsync();
+
+            return true;
         }
     }
 }

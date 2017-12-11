@@ -1,0 +1,15 @@
+﻿@model IEnumerable<UserListingServiceModel>
+
+@foreach (var user in Model)
+{
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a asp-controller="Users" asp-action="Profile" asp-route-username="@user.UserName">@user.UserName</a>
+            </div>
+            <div class="panel-body">
+                <img src="@user.ProfilePicUrl" width="30" height="30" alt="@user.ProfilePicUrl"/>
+            </div>
+        </div>
+    </div>
+}

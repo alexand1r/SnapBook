@@ -7,12 +7,19 @@
 
 <a href="http://maps.google.com/?q=@Model.Photo.Latitude,@Model.Photo.Longitude" class="text-primary">@Model.Photo.Location</a>
 
+<div>
+    @if (this.User.Identity.IsAuthenticated && (this.User.Identity.Name == Model.Photo.AlbumAuthor || this.User.Identity.Name == Model.Photo.AdAuthor))
+    {
+        <a asp-area="" asp-controller="Photos" asp-action="Edit" asp-route-id="@Model.Photo.Id">Edit</a>
+    }
+</div>
+
 <img src="@Model.Photo.ImageUrl" width="100" alt="@Model.Photo.ImageUrl"/>
 
-<h4>@Model.Photo.PublishDate.ToShortDateString() by @Model.Photo.Author</h4>
+<h4>@Model.Photo.PublishDate.ToShortDateString() by @(Model.Photo.AdId == null ? Model.Photo.AlbumAuthor : Model.Photo.AdAuthor)</h4>
 
-<div id="ajaxLink">
-    @if (Model.User != null)// && Model.User.UserName != Model.Photo.Author)
+<div id="ajaxLikeLink">
+    @if (Model.User != null)
     {
         if (!Model.CanLike)
         {
@@ -39,6 +46,28 @@
     }
 </div>
 
+<div id="ajaxSaveLink">
+    @if (Model.User != null && Model.User.UserName != Model.Photo.AdAuthor && Model.User.UserName != Model.Photo.AlbumAuthor)
+    {
+        if (!Model.CanSave)
+        {
+            <a asp-controller="Photos" asp-action="Save" asp-route-photoId="@Model.Photo.Id"
+               data-ajax="true"
+               data-ajax-method="POST"
+               data-ajax-success="ajaxSaveSuccess"
+               data-ajax-error="ajaxSaveError">Save</a>
+        }
+        else
+        {
+            <a asp-controller="Photos" asp-action="UnSave" asp-route-photoid="@Model.Photo.Id"
+               data-ajax="true"
+               data-ajax-method="POST"
+               data-ajax-success="ajaxUnsaveSuccess"
+               data-ajax-error="ajaxUnsaveError">Unsave</a>
+        }
+    }
+</div>
+
 <div id="likeResults">
     @Html.Partial("_Likes", Model.Photo.Likes)
 </div>
@@ -54,11 +83,11 @@
 }
 
 <div id="results">
-    @Html.Partial("_Comments", Model.Photo.Comments.OrderByDescending(c => c.PublishDate))
+    @Html.Partial("_Comments", Model.Photo.Comments)
 </div>
 
 <div>
-    <form asp-controller="Photos" asp-action="Comment" asp-route-photoid="@Model.Photo.Id"
+    <form asp-area="" asp-controller="Photos" asp-action="Comment" asp-route-photoid="@Model.Photo.Id"
           data-ajax="true"
           data-ajax-method="POST"
           data-ajax-update="#results"
@@ -68,7 +97,7 @@
           id="commentForm">
         <textarea class="form-control" name="Content" placeholder="Write a comment..."></textarea>
         <div>
-            <input type="submit" class="read btn btn-default" value="Post"/>
+            <input type="submit" class="btn btn-default" value="Post"/>
         </div>
     </form>
 </div>
@@ -85,11 +114,11 @@
     }
 
     var ajaxLikeSuccess = function () {
-        $('#ajaxLink').empty();
+        $('#ajaxLikeLink').empty();
 
-        $('#ajaxLink')
+        $('#ajaxLikeLink')
             .html('<a href="/photos/unlike?photoid=@Model.Photo.Id" ' +
-                'data-ajax="true" ' + 
+                'data-ajax="true" ' +
                 'data-ajax-method="POST" ' +
                 'data-ajax-update="#likeResults" ' +
                 'data-ajax-mode="replace" ' +
@@ -102,9 +131,9 @@
     }
 
     var ajaxUnlikeSuccess = function () {
-        $('#ajaxLink').empty();
+        $('#ajaxLikeLink').empty();
 
-        $('#ajaxLink')
+        $('#ajaxLikeLink')
             .html('<a href="/photos/like?photoid=@Model.Photo.Id" ' +
                 'data-ajax="true" ' +
                 'data-ajax-method="POST" ' +
@@ -116,5 +145,35 @@
     }
     var ajaxUnlikeError = function () {
         alert('Error: Could not unlike.');
+    }
+
+    var ajaxSaveSuccess = function () {
+        $('#ajaxSaveLink').empty();
+
+        $('#ajaxSaveLink')
+            .html('<a href="/photos/unsave?photoid=@Model.Photo.Id" ' +
+                'data-ajax="true" ' +
+                'data-ajax-method="POST" ' +
+                'data-ajax-success="ajaxUnsaveSuccess" ' +
+                'data-ajax-error="ajaxUnsaveError" ' +
+                '>Unsave</a>');
+    }
+    var ajaxSaveError = function () {
+        alert('Error: Could not save.');
+    }
+
+    var ajaxUnsaveSuccess = function () {
+        $('#ajaxSaveLink').empty();
+
+        $('#ajaxSaveLink')
+            .html('<a href="/photos/save?photoid=@Model.Photo.Id" ' +
+                'data-ajax="true" ' +
+                'data-ajax-method="POST" ' +
+                'data-ajax-success="ajaxSaveSuccess" ' +
+                'data-ajax-error="ajaxSaveError" ' +
+                '>Save</a>');
+    }
+    var ajaxUnsaveError = function () {
+        alert('Error: Could not unsave.');
     }
 </script>

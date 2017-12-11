@@ -3,8 +3,8 @@
     using AutoMapper;
     using Common.Mapping;
     using Data.Models;
+    using Models.Photo;
     using System.Collections.Generic;
-    using Snapbook.Services.Models.Photo;
 
     public class AlbumDetailsServiceModel : IMapFrom<Album>, IHaveCustomMapping
     {

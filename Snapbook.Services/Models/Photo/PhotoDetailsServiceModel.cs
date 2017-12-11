@@ -26,9 +26,17 @@
 
         public int Likes { get; set; }
 
-        public string Author { get; set; }
+        public string AlbumAuthor { get; set; }
 
-        public string AuthorId { get; set; }
+        public string AlbumAuthorId { get; set; }
+
+        public string AdAuthor { get; set; }
+
+        public string AdAuthorId { get; set; }
+
+        public int? AlbumId { get; set; }
+
+        public int? AdId { get; set; }
 
         public IEnumerable<CommentServiceModel> Comments { get; set; }
 
@@ -38,7 +46,9 @@
             => mapper
                 .CreateMap<Photo, PhotoDetailsServiceModel>()
                 .ForMember(pd => pd.Likes, cfg => cfg.MapFrom(p => p.Likers.Count))
-                .ForMember(pd => pd.Author, cfg => cfg.MapFrom(p => p.Album.User.UserName))
-                .ForMember(pd => pd.AuthorId, cfg => cfg.MapFrom(p => p.Album.User.Id));
+                .ForMember(pd => pd.AlbumAuthor, cfg => cfg.MapFrom(p => p.Album.User.UserName))
+                .ForMember(pd => pd.AlbumAuthorId, cfg => cfg.MapFrom(p => p.Album.User.Id))
+                .ForMember(pd => pd.AdAuthor, cfg => cfg.MapFrom(p => p.Ad.User.UserName))
+                .ForMember(pd => pd.AdAuthorId, cfg => cfg.MapFrom(p => p.Ad.User.Id));
     }
 }

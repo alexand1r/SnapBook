@@ -227,10 +227,15 @@ namespace Snapbook.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Action");
+
                     b.Property<bool>("IsRead");
 
-                    b.Property<string>("Message")
-                        .IsRequired();
+                    b.Property<int>("PhotoId");
+
+                    b.Property<DateTime>("PublishDate");
+
+                    b.Property<string>("SenderId");
 
                     b.Property<string>("UserId");
 

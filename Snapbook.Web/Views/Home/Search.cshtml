@@ -1,0 +1,45 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search</h2>
+
+<div class="row">
+    <form asp-controller="Home" asp-action="SearchResults"
+          data-ajax="true"
+          data-ajax-method="GET"
+          data-ajax-update="#results"
+          data-ajax-mode="replace"
+          id="searchForm">
+        <div class="col-md-2">
+            <input asp-for="SearchInPhotos" onclick="$('#searchForm').submit()"/>
+            <label asp-for="SearchInPhotos">Search In Photos</label>
+        </div>
+        <div class="col-md-2">
+            <input asp-for="SearchInAlbums" onclick="$('#searchForm').submit()"/>
+            <label asp-for="SearchInAlbums">Search In Albums</label>
+        </div>
+        <div class="col-md-2">
+            <input asp-for="SearchInUsers" onclick="$('#searchForm').submit()"/>
+            <label asp-for="SearchInUsers">Search In Users</label>
+        </div>
+        <div class="col-md-2">
+            <input asp-for="SearchInAds" onclick="$('#searchForm').submit()" />
+            <label asp-for="SearchInAds">Search In Ads</label>
+        </div>
+        <div class="col-md-4">
+            <input asp-for="SearchText" oninput="$('#searchForm').submit()" class="form-control" placeholder="Live Search..." />
+        </div>
+    </form>
+</div>
+
+<div id="results">
+    @Html.Partial("_SearchResults", Model.Results)
+</div>
+
+<script>
+    window.onload = function(){
+        $('#searchForm').submit();
+    }
+</script>

@@ -7,9 +7,21 @@
 
     public interface IPhotoService
     {
+        Task<EditPhotoServiceModel> FindForEdit(int id);
+
+        void Edit(
+            int id,
+            string description,
+            string location,
+            string latitude,
+            string longitude,
+            string tags);
+
         Task<IEnumerable<PhotoHomeServiceModel>> All();
 
         Task<PhotoDetailsServiceModel> Details(int id);
+
+        Task<IEnumerable<PhotoListingServiceModel>> Find(string searchText);
 
         Task<IEnumerable<CommentServiceModel>> Comment(
             int photoId,
@@ -21,5 +33,12 @@
         Task<int> Like(string userId, int photoId);
 
         Task<int> Unlike(string userId, int photoId);
+
+        Task<bool> CanSave(string userId, int photoId);
+
+        Task<bool> Save(string userId, int photoId);
+
+        Task<bool> Unsave(string userId, int photoId);
+
     }
 }

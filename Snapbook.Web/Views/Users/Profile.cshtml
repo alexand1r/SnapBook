@@ -5,30 +5,86 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<h3>@Model.Name - @Model.Username - @Model.BirthDate.ToShortDateString()</h3>
+@if (User.Identity.IsAuthenticated && User.Identity.Name == Model.Username)
+{
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Manage your account.
+            </div>
+            <div class="panel-body">
+                <div>
+                    <a asp-area="User" asp-controller="Users" asp-action="ChangeProfilePic" asp-route-username="@Model.Username">Change Profile Image</a>
+                </div>
+                <div>
+                    <a asp-area="" asp-controller="Manage" asp-action="ChangePassword">Change Password</a>
+                </div>
+                <div>
+                    <a asp-area="" asp-controller="Manage" asp-action="Index">Change Profile Information</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
 
-<table class="table table-bordered table-bordered">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Publish Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var album in Model.Albums)
-    {
-        <tr>
-            <td>
-                <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id">@album.Title</a>
-            </td>
-            <td>
-                @album.CategoryName
-            </td>
-            <td>
-                @album.PublishDate.ToShortDateString()
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<img src="@Model.ProfilePicUrl" alt="@Model.ProfilePicUrl" width="30" height="30"/>
+
+<h3>@Model.Name - @Model.Username</h3>
+
+@if (this.User.IsInRole(WebConstants.UserRole) && this.User.Identity.Name == Model.Username)
+{
+    <a asp-area="User" asp-controller="Users" asp-action="CreateAlbum" class="btn btn-success">Create New Album</a>
+}
+
+@if (Model.Albums.Any())
+{
+    <div>
+        @foreach (var album in Model.Albums)
+        {
+            <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id">@album.Title</a>
+
+            @album.CategoryName
+
+            @album.PublishDate.ToShortDateString()
+
+            if (this.User.IsInRole(WebConstants.UserRole) && this.User.Identity.Name == Model.Username)
+            {
+                <a asp-area="User" asp-controller="Albums" asp-action="Edit" asp-route-id="@album.Id" class="btn btn-default">Edit</a>
+            }
+        }
+    </div>
+}
+else
+{
+    <div><h3>User has no albums</h3></div>
+}
+
+@if (this.User.Identity.IsAuthenticated && this.User.Identity.Name == Model.Username)
+{
+     if (Model.SavedPhotos.Any())
+     {
+         <div>
+             @foreach (var photo in Model.SavedPhotos)
+             {
+             <div class="col-md-4">
+                 <div class="panel panel-default">
+                     <div class="panel-heading">
+                         <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
+                             <img src="@photo.ImageUrl" alt="@photo.ImageUrl" width="100" height="100"/>
+                         </a>
+                     </div>
+                     <div class="panel-body">
+                         @photo.Likes Likes | @photo.Comments Comments - 
+                         @(photo.AdAuthorId == null ?  photo.AlbumAuthor : photo.AdAuthor)
+                     </div>
+                 </div>
+             </div>
+             }
+         </div>
+     }
+     else
+     {
+         <div><h3>User has no saved photos.</h3></div>
+     }
+}

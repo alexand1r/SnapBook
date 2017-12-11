@@ -1,5 +1,7 @@
 ﻿namespace Snapbook.Services.User
 {
+    using System.Threading.Tasks;
+
     public interface IUserPhotoService
     {
         void Create(

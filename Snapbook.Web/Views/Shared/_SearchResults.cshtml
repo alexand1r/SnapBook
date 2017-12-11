@@ -1,0 +1,52 @@
+﻿@model SearchResultsViewModel
+    
+@if (Model != null)
+{
+     if (Model.Users.Any())
+     {
+         <h3>Found users</h3>
+         <div class="row">
+             @Html.Partial("_UserListingPartial", Model.Users)
+         </div>
+     }
+     else
+     {
+         <h3>No users to show.</h3>
+     }
+
+     if (Model.Albums.Any())
+     {
+         <h3>Found albums</h3>
+         <div class="row">
+             @Html.Partial("_AlbumListingPartial", Model.Albums)
+         </div>
+     }
+     else
+     {
+         <h3>No albums to show.</h3>
+     }
+
+     if (Model.Photos.Any())
+     {
+         <h3>Found photos</h3>
+         <div class="row">
+             @Html.Partial("_PhotoListingPartial", Model.Photos)
+         </div>
+     }
+     else
+     {
+         <h3>No photos to show.</h3>
+     }
+
+     if (Model.Ads.Any())
+     {
+         <h3>Found ads</h3>
+         <div class="row">
+             @Html.Partial("_AdListingPartial", Model.Ads)
+         </div>
+     }
+     else
+     { 
+         <h3>No ads to show.</h3>
+     }
+}

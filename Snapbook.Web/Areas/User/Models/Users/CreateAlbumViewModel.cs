@@ -1,6 +1,5 @@
 ﻿namespace Snapbook.Web.Areas.User.Models.Users
 {
-    using Data;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

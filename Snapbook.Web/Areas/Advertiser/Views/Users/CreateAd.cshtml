@@ -1,0 +1,77 @@
+﻿@model CreateAdViewModel
+
+@{
+    ViewData["Title"] = "Create Ad";
+}
+
+<h2>Create Ad</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <h4>Create your Ad.</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="10" class="form-control" ></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdProfilePicUrl"></label>
+                <input type="file" id="image_selector" />
+                <input type="hidden" id="image_url" asp-for="AdProfilePicUrl" />
+                <img src="none" id="image_preview" />
+                <span asp-validation-for="AdProfilePicUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Website"></label>
+                <input asp-for="Website" class="form-control" />
+                <span asp-validation-for="Website" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Create Ad</button>
+            <a asp-area="" asp-controller="Users" asp-action="Ad" asp-route-id="0" class="btn btn-default">Back</a>
+        </form>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    var clientid = '30f327ad6d6da1e';
+    $("#image_selector").change(function() {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = e.target.result.substr(e.target.result.indexOf(",") + 1, e.target.result.length);
+            $("#image_preview").attr("src", e.target.result);
+            $.ajax({
+                url: 'https://api.imgur.com/3/image',
+                headers: {
+                    'Authorization': 'Client-ID 30f327ad6d6da1e'
+                },
+                type: 'POST',
+                data: {
+                    'image': data,
+                    'type': 'base64'
+                },
+                success: function(response) {
+                    $("#image_preview").attr("src", response.data.link);
+                    $("#image_url").attr("value", response.data.link);
+                }, error: function() {
+                    alert("Error while uploading...");
+                }
+            });
+        };
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+

@@ -79,6 +79,11 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "notifications",
+                    template: "users/{username}/notifications",
+                    defaults: new { controller = "Users", action = "Notifications" });
+
+                routes.MapRoute(
                     name: "users",
                     template: "users/{username}",
                     defaults: new { controller = "Users", action = "Profile" });

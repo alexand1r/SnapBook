@@ -26,11 +26,4 @@
     <ProjectReference Include="..\Snapbook.Services\Snapbook.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Advertiser\Controllers\" />
-    <Folder Include="Areas\Advertiser\Data\" />
-    <Folder Include="Areas\Advertiser\Models\" />
-    <Folder Include="Areas\Advertiser\Views\" />
-  </ItemGroup>
-
 </Project>
