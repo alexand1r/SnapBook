@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AdListingServiceModel>
+
+@{
+    ViewData["Title"] = "Ads";
+}
+
+<h2>Ads</h2>
+
+<div class="col-xs-12" style="padding-top: 30px;">
+@foreach (var ad in Model)
+{
+    <div id="ad_@ad.Id" class="inline-div col-xs-3 text-center" style="padding-bottom: 20px;">
+        <div>@ad.Name</div>
+        <div>
+            <a asp-area="Admin" asp-controller="Ads" asp-action="Edit" asp-route-id="@ad.Id" class="btn btn-warning btn-sm">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-@ad.Id">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-@ad.Id" tabindex="-1" role="dialog" aria-labelledby="ad-@ad.Name" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-xs-8" id="ad-@ad.Name">Delete @ad.Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete ad @ad.Name?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a asp-area="Admin" asp-controller="Ads" asp-action="Delete" asp-route-id="@ad.Id"
+                        data-ajax="true" data-ajax-method="POST"
+                        data-ajax-success="ajaxDeleteSuccess_@ad.Id"
+                        data-ajax-error="ajaxDeleteError_@ad.Id"
+                        class="btn btn-danger" data-dismiss="modal">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    var ajaxDeleteSuccess_@ad.Id = function() {
+        $('#ad_' + '@ad.Id').remove();
+    }
+    var ajaxDeleteError_@ad.Id = function() {
+        alert('Error: Deletion failed.');
+    }
+</script>
+}
+</div>

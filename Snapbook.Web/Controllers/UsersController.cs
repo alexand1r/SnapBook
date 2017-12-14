@@ -1,6 +1,7 @@
 ﻿namespace Snapbook.Web.Controllers
 {
     using Data.Models;
+    using Infrastructure.Filters;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,31 @@
             return this.View(profile);
         }
 
+        public async Task<IActionResult> ChangeProfilePic(string username)
+        {
+            var user = await this.userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(new EditProfilePicViewModel
+            {
+                ImageUrl = user.ProfilePicUrl,
+                Username = username
+            });
+        }
+
+        [HttpPost]
+        [ValidateModelState]
+        public IActionResult ChangeProfilePic(string username, EditProfilePicViewModel model)
+        {
+            this.users.EditProfilePic(username, model.ImageUrl);
+
+            return this.RedirectToAction(nameof(this.Profile), "Users", new { area = "", username = username });
+        }
+
         public async Task<IActionResult> Notifications(string username)
         {
             var user = await this.userManager.FindByNameAsync(username);
@@ -52,6 +78,8 @@
             }
 
             var allNotifications = await this.notifications.All(user.Id);
+
+            this.notifications.ChangeAllToRead(user.Id);
 
             return this.View(allNotifications);
         }
@@ -80,7 +108,7 @@
             
             if (ad == null)
             {
-                return this.RedirectToAction("CreateAd", "Users", new {area="Advertiser"});
+                return this.RedirectToAction("CreateAd", "Users", new {Area="Advertiser"});
             }
 
             return this.View(new AdDetailsViewModel

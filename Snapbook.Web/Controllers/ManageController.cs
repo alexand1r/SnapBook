@@ -51,7 +51,8 @@
             var model = new IndexViewModel
             {
                 Username = user.UserName,
-                Name= user.Name,
+                Name = user.Name,
+                Bio = user.Bio,
                 Email = user.Email,
                 BirthDate = user.BirthDate,
                 IsEmailConfirmed = user.EmailConfirmed,
@@ -88,6 +89,7 @@
 
             var isNameChanged = model.Name != user.Name;
             var isBDateChanged = model.BirthDate != user.BirthDate;
+            var isBioChanged = model.Bio != user.Bio;
 
             if (isNameChanged)
             {
@@ -99,7 +101,12 @@
                 user.BirthDate = model.BirthDate;
             }
 
-            if (isNameChanged || isBDateChanged)
+            if (isBioChanged)
+            {
+                user.Bio = model.Bio;
+            }
+
+            if (isNameChanged || isBDateChanged || isBioChanged)
             {
                 await this._userManager.UpdateAsync(user);
             }

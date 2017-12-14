@@ -30,7 +30,9 @@
 
             var photo = await this.photos.FindForEdit(id);
 
-            if (user.Id != photo.AdUserId)
+            if (user.Id != photo.AdUserId 
+                && user.Id != photo.UserId 
+                && !this.User.IsInRole(WebConstants.AdministratorRole))
             {
                 return this.NotFound();
             }
@@ -75,17 +77,23 @@
                 canLike = await this.photos.CanLike(user.Id, id);
                 canSave = await this.photos.CanSave(user.Id, id);
             }
+
             var photo = await this.photos.Details(id);
+
+            var relatedPhotos = await this.photos.RelatedPhotos(id);
 
             return this.View(new PhotoDetailsViewModel
             {
                 Photo = photo,
+                RelatedPhotos = relatedPhotos,
                 CanLike = canLike,
                 CanSave = canSave,
                 User = user
             });
         }
         
+        [ValidateModelState]
+        [Notification]
         public async Task<IActionResult> Comment(int photoId, CreateCommentViewModel model)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -96,11 +104,12 @@
                 photoId,
                 model.Content,
                 userId);
-            
+
             return this.PartialView("_Comments", result);
         }
 
         [Authorize]
+        [Notification]
         public async Task<IActionResult> Like(int photoId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -112,6 +121,7 @@
         }
 
         [Authorize]
+        [Notification]
         public async Task<IActionResult> Unlike(int photoId)
         {
             var user = await this.userManager.GetUserAsync(this.User);

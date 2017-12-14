@@ -7,7 +7,8 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -34,7 +35,17 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Search">Search</a></li>
                     @if (User.IsInRole(WebConstants.AdministratorRole))
                     {
-                        <li><a asp-area="Admin" asp-controller="Users" asp-action="AdminPanel">Admin Panel</a></li>
+                        <li class="dropdown">
+                            <a class="btn dropdown-toggle" style="display: inline-block !important;" data-toggle="dropdown">Admin Panel
+                                <span class="caret" style="padding-bottom: 5px;"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="Admin" asp-controller="Users" asp-action="AddToRole">Manage User Roles</a></li>
+                                <li><a asp-area="Admin" asp-controller="Categories" asp-action="All">Manage Album Categories</a></li>
+                                <li><a asp-area="Admin" asp-controller="Photos" asp-action="All">Manage Photos</a></li>
+                                <li><a asp-area="Admin" asp-controller="Ads" asp-action="All">Manage Ads</a></li>
+                                <li><a asp-area="Admin" asp-controller="Albums" asp-action="All">Manage Albums</a></li>
+                            </ul>
+                        </li>
                     }
                     @if (User.IsInRole(WebConstants.UserRole))
                     {
@@ -47,34 +58,33 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Users" asp-action="Profile" asp-route-username="@User.Identity.Name">Profile</a></li>
-                        <li><a asp-controller="Users" asp-action="Notifications" asp-route-username="@User.Identity.Name">Notifications</a></li>
+                        @Html.Partial("_NotificationsLink", User.Identity.Name)
                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
-<div class="container body-content">
-    @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessage))
-    {
-        <div class="alert alert-success">
-            @TempData[WebConstants.TempDataSuccessMessage]
-        </div>
-    }
-    @if (TempData.ContainsKey(WebConstants.TempDataErrorMessage))
-    {
-        <div class="alert alert-danger">
-            @TempData[WebConstants.TempDataErrorMessage]
-        </div>
-    }
+    <div class="container body-content">
+        @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessage))
+        {
+            <div class="alert alert-success">
+                @TempData[WebConstants.TempDataSuccessMessage]
+            </div>
+        }
+        @if (TempData.ContainsKey(WebConstants.TempDataErrorMessage))
+        {
+            <div class="alert alert-danger">
+                @TempData[WebConstants.TempDataErrorMessage]
+            </div>
+        }
 
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; 2017 - Snapbook.Web</p>
-    </footer>
-</div>
-
+        @RenderBody()
+    </div>
+<hr />
+<footer class="text-center">
+    <p><small>&copy; 2017 - Snapbook</small></p>
+</footer>
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

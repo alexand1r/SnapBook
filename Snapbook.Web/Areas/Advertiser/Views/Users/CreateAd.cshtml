@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create Ad";
 }
 
-<h2>Create Ad</h2>
+<h2>Create</h2>
 
 <div class="row">
     <div class="col-md-4">
@@ -26,7 +26,7 @@
                 <label asp-for="AdProfilePicUrl"></label>
                 <input type="file" id="image_selector" />
                 <input type="hidden" id="image_url" asp-for="AdProfilePicUrl" />
-                <img src="none" id="image_preview" />
+                <img src="none" class="hidden" id="image_preview" />
                 <span asp-validation-for="AdProfilePicUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +35,6 @@
                 <span asp-validation-for="Website" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-default">Create Ad</button>
-            <a asp-area="" asp-controller="Users" asp-action="Ad" asp-route-id="0" class="btn btn-default">Back</a>
         </form>
     </div>
 </div>
@@ -48,6 +47,7 @@
         reader.onload = function(e) {
             var data = e.target.result.substr(e.target.result.indexOf(",") + 1, e.target.result.length);
             $("#image_preview").attr("src", e.target.result);
+            $("#image_preview").removeClass('hidden');
             $.ajax({
                 url: 'https://api.imgur.com/3/image',
                 headers: {
@@ -60,6 +60,7 @@
                 },
                 success: function(response) {
                     $("#image_preview").attr("src", response.data.link);
+                    $("#image_preview").removeClass('hidden');
                     $("#image_url").attr("value", response.data.link);
                 }, error: function() {
                     alert("Error while uploading...");

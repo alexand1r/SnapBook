@@ -6,9 +6,13 @@
 
     public class NotificationServiceModel : IMapFrom<Notification>
     {
-        public string SenderId { get; set; }
+        public string Sender { get; set; }
+
+        public string SenderUrl { get; set; }
 
         public int PhotoId { get; set; }
+
+        public string PhotoUrl { get; set; }
 
         public string Action { get; set; }
 

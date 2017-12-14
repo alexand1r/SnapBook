@@ -138,11 +138,11 @@ namespace Snapbook.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(30);
+                        .HasMaxLength(500);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30);
+                        .HasMaxLength(500);
 
                     b.Property<string>("UserId");
 
@@ -233,9 +233,13 @@ namespace Snapbook.Data.Migrations
 
                     b.Property<int>("PhotoId");
 
+                    b.Property<string>("PhotoUrl");
+
                     b.Property<DateTime>("PublishDate");
 
-                    b.Property<string>("SenderId");
+                    b.Property<string>("Sender");
+
+                    b.Property<string>("SenderUrl");
 
                     b.Property<string>("UserId");
 

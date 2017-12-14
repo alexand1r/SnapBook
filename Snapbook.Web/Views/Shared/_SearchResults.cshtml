@@ -1,52 +1,71 @@
 ﻿@model SearchResultsViewModel
-    
+<link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css" />
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#users"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
+    <li><a data-toggle="tab" href="#albums"><i class="fa fa-folder" aria-hidden="true"></i> Albums</a></li>
+    <li><a data-toggle="tab" href="#photos"><i class="fa fa-picture-o" aria-hidden="true"></i> Photos</a></li>
+    <li><a data-toggle="tab" href="#ads"><i class="fa fa-address-card-o" aria-hidden="true"></i> Ads</a></li>
+</ul>
+
 @if (Model != null)
 {
-     if (Model.Users.Any())
-     {
-         <h3>Found users</h3>
-         <div class="row">
-             @Html.Partial("_UserListingPartial", Model.Users)
-         </div>
-     }
-     else
-     {
-         <h3>No users to show.</h3>
-     }
+    <div class="tab-content">
+        <div id="users" class="tab-pane fade in active">
+            @if (Model.Users.Any())
+            {
+                <h3>Found users</h3>
+                <div class="center-block row col-xs-12">
+                    @Html.Partial("_UserListingPartial", Model.Users)
+                </div>
+            }
+            else
+            {
+                <h3>No users to show.</h3>
+            }
+        </div>
 
-     if (Model.Albums.Any())
-     {
-         <h3>Found albums</h3>
-         <div class="row">
-             @Html.Partial("_AlbumListingPartial", Model.Albums)
-         </div>
-     }
-     else
-     {
-         <h3>No albums to show.</h3>
-     }
+        <div id="albums" class="tab-pane fade">
+            @if (Model.Albums.Any())
+            {
+                <h3>Found albums</h3>
+                <div class="center-block row col-xs-12">
+                    @Html.Partial("_AlbumListingPartial", Model.Albums)
+                </div>
+            }
+            else
+            {
+                <h3>No albums to show.</h3>
+            }
+        </div>
 
-     if (Model.Photos.Any())
-     {
-         <h3>Found photos</h3>
-         <div class="row">
-             @Html.Partial("_PhotoListingPartial", Model.Photos)
-         </div>
-     }
-     else
-     {
-         <h3>No photos to show.</h3>
-     }
+        <div id="photos" class="tab-pane fade">
+            @if (Model.Photos.Any())
+            {
+                <h3>Found photos</h3>
+                <div class="center-block row col-xs-12">
+                    @Html.Partial("_PhotoListingPartial", Model.Photos)
+                </div>
+            }
+            else
+            {
+                <h3>No photos to show.</h3>
+            }
+        </div>
 
-     if (Model.Ads.Any())
-     {
-         <h3>Found ads</h3>
-         <div class="row">
-             @Html.Partial("_AdListingPartial", Model.Ads)
-         </div>
-     }
-     else
-     { 
-         <h3>No ads to show.</h3>
-     }
-}
+        <div id="ads" class="tab-pane fade">
+            @if (Model.Ads.Any())
+            {
+                <h3>Found ads</h3>
+                <div class="center-block row col-xs-12">
+                    @Html.Partial("_AdListingPartial", Model.Ads)
+                </div>
+            }
+            else
+            {
+                <h3>No ads to show.</h3>
+            }
+
+        </div>
+    </div>
+}    

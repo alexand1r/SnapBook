@@ -2,15 +2,16 @@
 
 @foreach (var album in Model)
 {
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id">@album.Title</a>
-            </div>
-            <div class="panel-body">
-                @album.CategoryName - @album.PublishDate.ToShortDateString()
-            </div>
+    <div class="panel-show col-xs-6 col-sm-4">
+        <div class="panel panel-default text-center">
+            <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id">
+                <div class="panel-heading">
+                    <h3>@album.Title</h3>
+                </div>
+                <div class="panel-body">
+                    <h5 class="wrap"><em>Category: @album.CategoryName</em></h5>
+                </div>
+            </a>
         </div>
     </div>
-
 }

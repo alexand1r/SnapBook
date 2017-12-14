@@ -6,16 +6,56 @@
 
 <h2>Categories</h2>
 
-@foreach (var category in Model)
-{
-    <div>@category.Name</div>
-    <div>
-        <a asp-area="Admin" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-warning">Edit</a>
-        <a asp-area="Admin" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger">Delete</a>
-    </div>
-}
+<div class="col-xs-12" style="padding-top: 30px;">
+    @foreach (var category in Model)
+    {
+        <div id="category_@category.Id" class="inline-div col-xs-3 text-center" style="padding-bottom: 20px;">
+            <div>@category.Name</div>
+            <div>
+                <a asp-area="Admin" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-warning btn-sm">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-@category.Id">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
 
-<div>
+        <div class="modal fade" id="delete-@category.Id" tabindex="-1" role="dialog" aria-labelledby="category-@category.Name" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title col-xs-8" id="categoty-@category.Name">Delete @category.Name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete category @category.Name?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <a asp-area="Admin" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id"
+                           data-ajax="true" data-ajax-method="POST"
+                           data-ajax-success="ajaxDeleteSuccess_@category.Id"
+                           data-ajax-error="ajaxDeleteError_@category.Id"
+                           class="btn btn-danger" data-dismiss="modal">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        var ajaxDeleteSuccess_@category.Id = function() {
+            $('#category_' + '@category.Id').remove();
+        }
+        var ajaxDeleteError_@category.Id = function() {
+            alert('Error: Deletion failed.');
+        }
+        </script>
+    }
+</div>
+<div class="col-xs-12 text-center" style="padding-top: 20px;">
     <a asp-area="Admin" asp-controller="Categories" asp-action="Create" class="btn btn-success">Create New Category</a>
 </div>
 

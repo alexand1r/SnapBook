@@ -56,5 +56,21 @@
 
             return this.RedirectToAction(nameof(this.All));
         }
+        
+        public async Task<bool> Delete(int id)
+        {
+            var category = await this.categories.Find(id);
+
+            if (category == null)
+            {
+                //return this.NotFound();
+                return false;
+            }
+
+            this.categories.Delete(id);
+
+            //return this.RedirectToAction(nameof(this.All));
+            return true;
+        }
     }
 }

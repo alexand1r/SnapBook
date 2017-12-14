@@ -6,8 +6,7 @@
     public class AddPhotoToAdViewModel
     {
         [Required]
-        [MinLength(PhotoDescriptionMinLength)]
-        [MaxLength(PhotoDescriptionMaxLength)]
+        [StringLength(PhotoDescriptionMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = PhotoDescriptionMinLength)]
         public string Description { get; set; }
 
         public string Location { get; set; }
@@ -17,7 +16,7 @@
         public string Longitude { get; set; }
 
         [Required]
-        [Display(Name = "Image Url")]
+        [Display(Name = "Choose a photo")]
         public string ImageUrl { get; set; }
 
         public string Tags { get; set; }

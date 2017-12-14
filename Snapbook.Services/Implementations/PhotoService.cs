@@ -10,6 +10,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
 
     public class PhotoService : IPhotoService
     {
@@ -86,6 +87,28 @@
                 .Where(p => p.Id == id)
                 .ProjectTo<PhotoDetailsServiceModel>()
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<PhotoRelatedServiceModel>> RelatedPhotos(int id)
+        {
+            var photo = await this.db.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (photo.AlbumId != null)
+            {
+                return await this.db
+                    .Photos
+                    .Where(p => p.AlbumId == photo.AlbumId)
+                    .ProjectTo<PhotoRelatedServiceModel>()
+                    .ToListAsync();
+            }
+            else
+            {
+                return await this.db
+                    .Photos
+                    .Where(p => p.AdId == photo.AdId)
+                    .ProjectTo<PhotoRelatedServiceModel>()
+                    .ToListAsync();
+            }
+        }
 
         public async Task<IEnumerable<PhotoListingServiceModel>> Find(string searchText)
         {

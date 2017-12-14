@@ -3,14 +3,23 @@
     ViewData["Title"] = "Home";
 }
 
-<div>
-    @foreach (var photo in Model.Photos)
-    {
-        @Html.Partial("_PhotoPartial", new PhotoParcialViewModel
-        {
-            Photo = photo,
-            User = Model.User
-        })
-    }
-    <br/>
-</div>
+<main>
+    <section id="home">
+        
+        <header class="col-xs-12 text-center">
+            <h1 id="header">Snapbook</h1>
+        </header>
+
+        <div class="container-fluid home-container">
+            @foreach (var photo in Model.Photos)
+            {
+                @Html.Partial("_PhotoPartial", new PhotoParcialViewModel
+                {
+                    Photo = photo,
+                    User = Model.User
+                })
+            }
+            <br/>
+        </div>
+    </section>
+</main>

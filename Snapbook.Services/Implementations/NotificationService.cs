@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Snapbook.Data.Models;
     using Snapbook.Services.Models.Notification;
 
     public class NotificationService : INotificationService
@@ -21,12 +22,32 @@
         {
             var notifications = await this.db
                 .Notifications
-                .Where(n => n.UserId == userId)
+                .Where(n => n.UserId == userId && !n.IsRead)
                 .OrderByDescending(n => n.PublishDate)
                 .ProjectTo<NotificationServiceModel>()
                 .ToListAsync();
 
             return notifications;
+        }
+
+        public int FindUnRead(string username)
+            => this.db
+                .Notifications
+                .Count(n => n.User.UserName == username && !n.IsRead);
+
+        public void ChangeAllToRead(string userId)
+        {
+            var notReadNotifications = this.db
+                .Notifications
+                .Where(n => n.UserId == userId && !n.IsRead)
+                .ToList();
+
+            foreach (var n in notReadNotifications)
+            {
+                n.IsRead = true;
+            }
+
+            this.db.SaveChanges();
         }
     }
 }

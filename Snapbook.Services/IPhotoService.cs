@@ -21,6 +21,8 @@
 
         Task<PhotoDetailsServiceModel> Details(int id);
 
+        Task<IEnumerable<PhotoRelatedServiceModel>> RelatedPhotos(int id);
+
         Task<IEnumerable<PhotoListingServiceModel>> Find(string searchText);
 
         Task<IEnumerable<CommentServiceModel>> Comment(

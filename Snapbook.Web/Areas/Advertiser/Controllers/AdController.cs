@@ -3,11 +3,10 @@
     using Data.Models;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
     using Models.Ad;
     using Services.Advertiser;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
     public class AdController : BaseController
     {

@@ -8,6 +8,8 @@
     {
         Task<UserProfileServiceModel> ProfileAsync(string id);
 
+        void EditProfilePic(string username, string imageUrl);
+
         Task<IEnumerable<UserListingServiceModel>> Find(string searchText);
     }
 }

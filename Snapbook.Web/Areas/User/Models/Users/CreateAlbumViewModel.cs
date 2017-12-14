@@ -8,13 +8,11 @@
     public class CreateAlbumViewModel
     {
         [Required]
-        [MinLength(AlbumTitleMinLength)]
-        [MaxLength(AlbumTitleMaxLength)]
+        [StringLength(AlbumTitleMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = AlbumTitleMinLength)]
         public string Title { get; set; }
 
         [Required]
-        [MinLength(AlbumDescriptionMinLength)]
-        [MaxLength(AlbumDescriptionMaxLength)]
+        [StringLength(AlbumDescriptionMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = AlbumDescriptionMinLength)]
         public string Description { get; set; }
 
         [Display(Name = "Category")]

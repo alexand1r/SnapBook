@@ -45,7 +45,6 @@
             
             return this.View(new EditAlbumViewModel
             {
-                Id = id,
                 Categories = categoriess,
                 Title = album.Title,
                 Description = album.Description,

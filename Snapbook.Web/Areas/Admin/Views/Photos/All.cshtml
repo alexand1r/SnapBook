@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PhotoListingServiceModel>
+
+@{
+    ViewData["Title"] = "Photos";
+}
+
+<h2>Photos</h2>
+<div class="row">
+@foreach (var photo in Model)
+{
+    <div id="photo-@photo.Id" class="inline-div">
+        <div class="admin-photo">
+            <div class="inline-div">
+                <img src="@photo.ImageUrl" width="100" height="100"/>
+            </div>
+            <div class="admin-buttons">
+                <div>
+                    <a asp-area="" asp-controller="Photos" asp-action="Edit" asp-route-id="@photo.Id" class="btn btn-warning btn-sm">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-@photo.Id">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-@photo.Id" tabindex="-1" role="dialog" aria-labelledby="photo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-xs-8" id="photo">Delete Photo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this photo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a asp-area="Admin" asp-controller="Photos" asp-action="Delete" asp-route-id="@photo.Id"
+                        data-ajax="true" data-ajax-method="POST"
+                        data-ajax-success="ajaxDeleteSuccess_@photo.Id"
+                        data-ajax-error="ajaxDeleteError_@photo.Id"
+                        class="btn btn-danger" data-dismiss="modal">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    var ajaxDeleteSuccess_@photo.Id = function() {
+        $('#photo-' + '@photo.Id').remove();
+    }
+    var ajaxDeleteError_@photo.Id = function() {
+        alert('Error: Deletion failed.');
+    }
+</script>
+}
+</div>

@@ -10,6 +10,8 @@
 
         void Edit(int id, string name);
 
+        void Delete(int id);
+
         Task<bool> ExistsAsync(string name);
 
         Task<CategoryListingServiceModel> Find(int id);

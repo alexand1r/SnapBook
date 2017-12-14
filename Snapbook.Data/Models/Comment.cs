@@ -9,8 +9,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(CommentContentMinLength)]
-        [MaxLength(CommentContentMaxLength)]
+        [StringLength(CommentContentMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = CommentContentMinLength)]
         public string Content { get; set; }
 
         public DateTime PublishDate { get; set; }

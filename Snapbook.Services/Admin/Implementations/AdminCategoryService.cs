@@ -45,6 +45,21 @@
             this.db.SaveChanges();
         }
 
+        public void Delete(int id)
+        {
+            var category = this.db
+                .Categories
+                .FirstOrDefault(c => c.Id == id);
+
+            if (category == null)
+            {
+                return;
+            }
+
+            this.db.Categories.Remove(category);
+            this.db.SaveChanges();
+        }
+
         public async Task<bool> ExistsAsync(string name)
             => await this.db.Categories.AnyAsync(c => c.Name == name);
 

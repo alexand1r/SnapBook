@@ -28,6 +28,22 @@
             return userProfile;
         }
 
+        public void EditProfilePic(string username, string imageUrl)
+        {
+            var user = this.db
+                .Users
+                .FirstOrDefault(u => u.UserName == username);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.ProfilePicUrl = imageUrl;
+
+            this.db.SaveChanges();
+        }
+
         public async Task<IEnumerable<UserListingServiceModel>> Find(string searchText)
         {
             if (searchText == null)

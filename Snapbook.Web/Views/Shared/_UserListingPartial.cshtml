@@ -2,14 +2,23 @@
 
 @foreach (var user in Model)
 {
-    <div class="col-md-4">
+    <div class="panel-show col-xs-6 col-sm-4">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <a asp-controller="Users" asp-action="Profile" asp-route-username="@user.UserName">@user.UserName</a>
-            </div>
-            <div class="panel-body">
-                <img src="@user.ProfilePicUrl" width="30" height="30" alt="@user.ProfilePicUrl"/>
-            </div>
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@user.UserName">
+                <div class="panel-heading">
+                    @if (user.ProfilePicUrl != null)
+                    {
+                        <img src="@user.ProfilePicUrl" class="img-responsive img-listing" alt="@user.ProfilePicUrl"/>
+                    }
+                    else
+                    {
+                        <img src="~/images/profile.png" class="img-responsive img-listing" alt="profile-img"/>
+                    }
+                </div>
+                <div class="panel-body text-center">
+                    <h5 class="wrap"><em>@user.UserName</em></h5>
+                </div>
+            </a>
         </div>
     </div>
 }

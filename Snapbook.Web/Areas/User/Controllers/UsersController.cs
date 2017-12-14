@@ -1,7 +1,6 @@
 ﻿namespace Snapbook.Web.Areas.User.Controllers
 {
     using Data.Models;
-    using Infrastructure.Filters;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,49 +14,21 @@
     {
         private readonly IUserCategoryService categories;
         private readonly IUserAlbumService albums;
-        private readonly IUserUserService users;
         private readonly UserManager<User> userManager;
 
         public UsersController(
             IUserCategoryService categories,
             IUserAlbumService albums,
-            IUserUserService users,
             UserManager<User> userManager)
         {
             this.categories = categories;
             this.albums = albums;
-            this.users = users;
             this.userManager = userManager;
-        }
-
-        public async Task<IActionResult> ChangeProfilePic(string username)
-        {
-            var user = await this.userManager.FindByNameAsync(username);
-
-            if (user == null)
-            {
-                return this.NotFound();
-            }
-
-            return this.View(new EditProfilePicViewModel
-            {
-                ImageUrl = user.ProfilePicUrl,
-                Username = username
-            });
-        }
-
-        [HttpPost]
-        [ValidateModelState]
-        public IActionResult ChangeProfilePic(string username, EditProfilePicViewModel model)
-        {
-            this.users.EditProfilePic(username, model.ImageUrl);
-
-            return this.RedirectToAction("Profile", "Users", new {area = "", username = username});
         }
 
         public async Task<ActionResult> CreateAlbum()
         {
-            var categoriess = await this.GetCategories(); 
+            var categoriess = await this.GetCategories();
 
             return this.View(new CreateAlbumViewModel
             {

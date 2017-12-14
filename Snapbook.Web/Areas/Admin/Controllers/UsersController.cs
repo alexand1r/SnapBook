@@ -17,7 +17,7 @@
         private readonly IAdminUserService adminUsers;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<User> userManager;
-
+        
         public UsersController(
             IAdminCategoryService categories,
             IAdminUserService adminUsers, 
@@ -30,12 +30,17 @@
             this.userManager = userManager;
         }
 
-        public IActionResult AdminPanel()
-            => this.View();
-
         public async Task<IActionResult> AddToRole()
         {
             var users = await this.adminUsers.AllAsync();
+
+            foreach (var user in users)
+            {
+                var u = await this.userManager.FindByIdAsync(user.Id);
+                var userRoles = await this.userManager.GetRolesAsync(u);
+                user.UserRoles = userRoles;
+            }
+
             var roles = await this.roleManager
                 .Roles
                 .Select(r => new SelectListItem
@@ -70,6 +75,28 @@
 
             this.TempData.AddSuccessMessage($"User {user.UserName} success added to {model.Role} role.");
             await this.userManager.AddToRoleAsync(user, model.Role);
+
+            return this.RedirectToAction(nameof(this.AddToRole));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveRole(RemoveRoleViewModel model)
+        {
+            var roleExist = await this.roleManager.RoleExistsAsync(model.Role);
+            var user = await this.userManager.FindByIdAsync(model.UserId);
+
+            if (!roleExist || user == null)
+            {
+                this.ModelState.AddModelError(string.Empty, "Invalid identity details.");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction(nameof(this.AddToRole));
+            }
+
+            this.TempData.AddSuccessMessage($"User {user.UserName} successfully removed from {model.Role} role.");
+            await this.userManager.RemoveFromRoleAsync(user, model.Role);
 
             return this.RedirectToAction(nameof(this.AddToRole));
         }

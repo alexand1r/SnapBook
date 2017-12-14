@@ -9,7 +9,7 @@
         public const int CommentContentMaxLength = 300;
 
         public const int AdNameMinLength = 3;
-        public const int AdNameMaxLength = 30;
+        public const int AdNameMaxLength = 500;
         public const int AdDescriptionMinLength = 3;
         public const int AdDescriptionMaxLength = 1000;
 

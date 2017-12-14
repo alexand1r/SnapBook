@@ -1,0 +1,14 @@
+﻿@using Snapbook.Services.Implementations
+@model string
+@inject NotificationService NotificationService
+@{
+    var count = NotificationService.FindUnRead(Model);
+}
+
+<li>
+    <a asp-controller="Users"
+       asp-action="Notifications"
+       asp-route-username="@Model"
+       >Notifications @if(count > 0) {<span class="badge">@count</span>}
+    </a>
+</li>

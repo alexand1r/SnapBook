@@ -10,7 +10,9 @@
     <tr>
         <th>Username</th>
         <th>E-mail</th>
+        <th>User Roles</th>
         <th>Add Role</th>
+        <th>Remove Role</th>
     </tr>
     </thead>
     <tbody>
@@ -20,17 +22,38 @@
             <td>@user.Username</td>
             <td>@user.Email</td>
             <td>
+                <ul style="padding-left: 0;">
+                    @foreach (var role in user.UserRoles)
+                    {
+                        <li style="list-style: none;">@role</li>
+                    }
+                </ul>
+            </td>
+            <td>
                 <form asp-controller="Users" asp-action="AddToRole" method="post">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-7">
                             <input type="hidden" name="UserId" value="@user.Id" />
                             <select name="Role" asp-items="Model.Roles" class="form-control"></select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <input class="btn btn-sm btn-primary" type="submit" value="Add Role" />
                         </div>
                     </div>
                 </form>
+            </td>
+            <td>
+                <form asp-controller="Users" asp-action="RemoveRole" method="post">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <input type="hidden" name="UserId" value="@user.Id" />
+                            <select name="Role" asp-items="Model.Roles" class="form-control"></select>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="btn btn-sm btn-primary" type="submit" value="Remove Role" />
+                        </div>
+                    </div>
+                </form>            
             </td>
         </tr>
     }

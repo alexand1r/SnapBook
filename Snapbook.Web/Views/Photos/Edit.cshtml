@@ -4,12 +4,12 @@
     ViewData["Title"] = "Edit Photo";
 }
 
-<h2>Edit Photo</h2>
+<h2>Edit</h2>
 
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <h4>Edit photo.</h4>
+            <h4>Edit a photo.</h4>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" id="lat" asp-for="Latitude" />
@@ -29,8 +29,7 @@
                 <input asp-for="Tags" class="form-control" placeholder="Example: tag1 tag2 ..." />
                 <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Edit Photo</button>
-            <a asp-area="" asp-controller="Photos" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-default">Back</a>
+            <button type="submit" class="btn btn-default">Edit</button>
         </form>
     </div>
 </div>

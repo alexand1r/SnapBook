@@ -78,7 +78,7 @@
 
             viewModel.Results = results;
 
-            return this.View("_SearchResults", results);
+            return this.PartialView("_SearchResults", results);
         }
 
         public IActionResult Error()

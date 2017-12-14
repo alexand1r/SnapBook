@@ -11,16 +11,13 @@
     public class UsersController : BaseController
     {
         private readonly IAdvertiserUserService users;
-        private readonly IAdvertiserAdService ads;
         private readonly UserManager<User> userManager;
 
         public UsersController(
             IAdvertiserUserService users,
-            IAdvertiserAdService ads,
             UserManager<User> userManager)
         {
             this.users = users;
-            this.ads = ads;
             this.userManager = userManager;
         }
 
@@ -40,7 +37,7 @@
                 model.Website,
                 user.Id);
 
-            return this.RedirectToAction("Ad", "Users");
+            return this.RedirectToAction("Ad", "Users", new { Area="", id=0 });
         }
     }
 }

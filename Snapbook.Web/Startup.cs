@@ -5,13 +5,13 @@
     using Data.Models;
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Snapbook.Services.Implementations;
+    using Services.Implementations;
 
     public class Startup
     {
@@ -40,7 +40,9 @@
 
 
             services.AddAutoMapper();
+
             services.AddTransient<PhotoService>();
+            services.AddTransient<NotificationService>();
             services.AddDomainServices();
 
             services.AddRouting(routing => routing.LowercaseUrls = true);
@@ -54,6 +56,12 @@
             {
                 facebookOptions.AppId = this.Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = this.Configuration["Authentication:Facebook:AppSecret"];
+            });
+
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = this.Configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = this.Configuration["Authentication:Google:ClientSecret"];
             });
         }
         
@@ -82,6 +90,11 @@
                     name: "notifications",
                     template: "users/{username}/notifications",
                     defaults: new { controller = "Users", action = "Notifications" });
+
+                routes.MapRoute(
+                    name: "change-profile-pic",
+                    template: "users/{username}/change-profile-photo",
+                    defaults: new { controller = "Users", action = "ChangeProfilePic" });
 
                 routes.MapRoute(
                     name: "users",
