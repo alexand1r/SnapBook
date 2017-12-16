@@ -17,17 +17,21 @@
             this.db = db;
         }
 
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var album = this.db.Albums.FirstOrDefault(a => a.Id == id);
+            var album =  await this.db
+                .Albums
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             if (album == null)
             {
-                return;
+                return false;
             }
 
             this.db.Albums.Remove(album);
             this.db.SaveChanges();
+
+            return true;
         }
 
         public async Task<IEnumerable<AlbumListingServiceModel>> All()
@@ -49,13 +53,15 @@
                 .ProjectTo<EditAlbumServiceModel>()
                 .FirstOrDefaultAsync();
 
-        public void Edit(string title, string description, int categoryId, int albumId)
+        public async Task<bool> Edit(string title, string description, int categoryId, int albumId)
         {
-            var album = this.db.Albums.FirstOrDefault(a => a.Id == albumId);
+            var album = await this.db
+                .Albums
+                .FirstOrDefaultAsync(a => a.Id == albumId);
 
             if (album == null)
             {
-                return;
+                return false;
             }
 
             album.Title = title;
@@ -63,6 +69,8 @@
             album.CategoryId = categoryId;
 
             this.db.SaveChanges();
+
+            return true;
         }
     }
 }

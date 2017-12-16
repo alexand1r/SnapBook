@@ -1,0 +1,15 @@
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Snapbook.Services.deps.json
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Snapbook.Services.dll
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Snapbook.Services.pdb
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Snapbook.Common.dll
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Snapbook.Data.dll
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Snapbook.Common.pdb
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Snapbook.Data.pdb
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\bin\Release\netstandard2.0\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\obj\Release\netstandard2.0\Snapbook.Services.csprojResolveAssemblyReference.cache
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\obj\Release\netstandard2.0\Snapbook.Services.csproj.CoreCompileInputs.cache
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\obj\Release\netstandard2.0\Snapbook.Services.AssemblyInfoInputs.cache
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\obj\Release\netstandard2.0\Snapbook.Services.AssemblyInfo.cs
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\obj\Release\netstandard2.0\Snapbook.Services.dll
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Services\obj\Release\netstandard2.0\Snapbook.Services.pdb

@@ -47,11 +47,14 @@
     </div>
 
 <script>
-    var ajaxDeleteSuccess_@album.Id = function() {
+    var ajaxDeleteSuccess_@album.Id = function(message) {
         $('#album_' + '@album.Id').remove();
+        var messageDiv = $('<div class="alert alert-success text-center">' + message + '</div>');
+        $('.body-content').prepend(messageDiv);
     }
     var ajaxDeleteError_@album.Id = function() {
-        alert('Error: Deletion failed.');
+        var messageDiv = $('<div class="alert alert-error text-center">Error: Deletion failed.</div>');
+        $('.body-content').prepend(messageDiv);
     }
 </script>
 }

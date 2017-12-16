@@ -4,7 +4,7 @@
 
     public interface IUserPhotoService
     {
-        void Create(
+        Task<bool> Create(
             string description,
             string imageUrl,
             string location,

@@ -8,9 +8,9 @@
     {
         void Create(string name);
 
-        void Edit(int id, string name);
+        Task<bool> Edit(int id, string name);
 
-        void Delete(int id);
+        Task<bool> Delete(int id);
 
         Task<bool> ExistsAsync(string name);
 

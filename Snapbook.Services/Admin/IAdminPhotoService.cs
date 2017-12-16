@@ -6,7 +6,7 @@
 
     public interface IAdminPhotoService
     {
-        void Delete(int id);
+        Task<bool> Delete(int id);
 
         Task<IEnumerable<PhotoListingServiceModel>> All();
 

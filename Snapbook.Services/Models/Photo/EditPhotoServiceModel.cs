@@ -16,7 +16,7 @@
 
         public string Longitude { get; set; }
 
-        public string UserId { get; set; }
+        public string AlbumUserId { get; set; }
 
         public string AdUserId { get; set; }
 
@@ -25,7 +25,7 @@
         public void ConfigureMapping(Profile mapper)
             => mapper
                 .CreateMap<Photo, EditPhotoServiceModel>()
-                .ForMember(ep => ep.UserId, cfg => cfg.MapFrom(p => p.Album.UserId))
+                .ForMember(ep => ep.AlbumUserId, cfg => cfg.MapFrom(p => p.Album.UserId))
                 .ForMember(ep => ep.AdUserId, cfg => cfg.MapFrom(p => p.Ad.UserId));
     }
 }

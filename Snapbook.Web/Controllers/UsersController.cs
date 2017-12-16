@@ -8,6 +8,7 @@
     using Models.Users;
     using Snapbook.Services;
     using System.Threading.Tasks;
+    using Snapbook.Web.Infrastructure.Extensions;
 
     [Authorize]
     public class UsersController : Controller
@@ -61,11 +62,17 @@
 
         [HttpPost]
         [ValidateModelState]
-        public IActionResult ChangeProfilePic(string username, EditProfilePicViewModel model)
+        public async Task<IActionResult> ChangeProfilePic(string username, EditProfilePicViewModel model)
         {
-            this.users.EditProfilePic(username, model.ImageUrl);
+            var success = await this.users.EditProfilePic(username, model.ImageUrl);
 
-            return this.RedirectToAction(nameof(this.Profile), "Users", new { area = "", username = username });
+            if (!success)
+            {
+                return this.BadRequest();
+            }
+
+            this.TempData.AddSuccessMessage($"The profile photo has been successfully changed.");
+            return this.RedirectToAction(nameof(this.Profile), "Users", new { Area = "", username = username });
         }
 
         public async Task<IActionResult> Notifications(string username)
@@ -102,13 +109,12 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            var userId = user?.Id;
 
-            var ad = await this.ads.Find(userId);
+            var ad = await this.ads.Find(user?.Id);
             
             if (ad == null)
             {
-                return this.RedirectToAction("CreateAd", "Users", new {Area="Advertiser"});
+                return this.RedirectToAction("CreateAd", "Ad", new {Area="Advertiser"});
             }
 
             return this.View(new AdDetailsViewModel

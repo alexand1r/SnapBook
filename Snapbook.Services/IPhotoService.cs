@@ -9,7 +9,7 @@
     {
         Task<EditPhotoServiceModel> FindForEdit(int id);
 
-        void Edit(
+        Task<bool> Edit(
             int id,
             string description,
             string location,

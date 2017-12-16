@@ -33,7 +33,7 @@
              && this.User.Identity.Name == Model.Username)
         {
             <a class="btn btn-success" 
-               asp-area="User" asp-controller="Albums" asp-action="AddPhoto" asp-route-albumid="@Model.Id">Add New Photo</a>
+               asp-area="User" asp-controller="Photos" asp-action="AddPhoto" asp-route-albumid="@Model.Id">Add New Photo</a>
             <a asp-area="User" asp-controller="Albums" asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-warning">Edit</a>
         }

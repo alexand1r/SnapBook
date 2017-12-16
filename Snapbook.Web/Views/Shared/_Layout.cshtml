@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] | Snapbook</title>
 
-    <environment include="Development">
+    <environment include="Development,Staging,Production">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link href="~/css/site.css" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     </environment>
-    <environment exclude="Development">
+    <environment exclude="Development,Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
@@ -68,13 +68,13 @@
     <div class="container body-content">
         @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessage))
         {
-            <div class="alert alert-success">
+            <div class="alert alert-success text-center">
                 @TempData[WebConstants.TempDataSuccessMessage]
             </div>
         }
         @if (TempData.ContainsKey(WebConstants.TempDataErrorMessage))
         {
-            <div class="alert alert-danger">
+            <div class="alert alert-danger text-center">
                 @TempData[WebConstants.TempDataErrorMessage]
             </div>
         }
@@ -85,13 +85,13 @@
 <footer class="text-center">
     <p><small>&copy; 2017 - Snapbook</small></p>
 </footer>
-<environment include="Development">
+<environment include="Development,Staging,Production">
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
 </environment>
-    <environment exclude="Development">
+    <environment exclude="Development,Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"

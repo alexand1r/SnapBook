@@ -16,20 +16,16 @@
         public async Task<IActionResult> All()
             => this.View(await this.photos.All());
 
-        public async Task<bool> Delete(int id)
+        public async Task<string> Delete(int id)
         {
-            var photo = await this.photos.Exists(id);
+            var success = await this.photos.Delete(id);
 
-            if (!photo)
+            if (!success)
             {
-                //return this.NotFound();
-                return false;
+                return $"Photo Not Found.";
             }
 
-            this.photos.Delete(id);
-
-            //return this.RedirectToAction(nameof(this.All));
-            return true;
+            return $"The photo has been successfully deleted.";
         }
     }
 }

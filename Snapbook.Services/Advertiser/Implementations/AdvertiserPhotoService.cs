@@ -17,7 +17,7 @@
             this.db = db;
         }
 
-        public void Create(
+        public async Task<bool> Create(
             string description,
             string imageUrl,
             string location,
@@ -26,6 +26,15 @@
             string tags,
             int adId)
         {
+            var ad = await this.db
+                .Ads
+                .FirstOrDefaultAsync(a => a.Id == adId);
+
+            if (ad == null)
+            {
+                return false;
+            }
+
             var photo = new Photo
             {
                 Description = description,
@@ -52,6 +61,8 @@
             }
 
             this.db.SaveChanges();
+
+            return true;
         }
     }
 }

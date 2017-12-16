@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGTUqR8t6CUK2kbuQobgeLQAAAAACAAAAAAAQZgAAAAEAACAAAABRC00HVMZ9aA00BsP3fzJ2uWNTwmVl7w0xMlTVa+oRpAAAAAAOgAAAAAIAACAAAAByvvmcuharcRPaZ3icenogOcJqjS+ekz++Q5MsQZ3iqIAAAAAC6FfJ82sfKzrlHa3i/6vVTahi/kL/GC1/LLKtj5oplePd7RhwM7sMHRmdYGUr8FVffzuK89h3IM6UpwXACS6WCQLHX3hG1RiJsc1K976rsCxR15nT2YrZk2UzvUcQ7JjG8I3V0kCFLnEH7jjA32z2uijUzWEjH5ApU4P5HjnLZkAAAABv2UECdg2Kv55GLiRVE9+0RZp4ovOCtTee2Tkq7e1jHqw37A0q39yodtWaqJDrs741YhKZXeN7bXcxhBi+ImzU</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=tcp:snapbook.database.windows.net,1433;Initial Catalog=Snapbook;Persist Security Info=False;User ID=snapbookadmin;Password=Sn4pb00k;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

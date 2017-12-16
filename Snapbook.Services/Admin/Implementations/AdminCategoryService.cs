@@ -29,35 +29,39 @@
             this.db.SaveChanges();
         }
 
-        public void Edit(int id, string name)
+        public async Task<bool> Edit(int id, string name)
         {
-            var category = this.db
+            var category = await this.db
                 .Categories
-                .FirstOrDefault(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (category == null)
             {
-                return;
+                return false;
             }
 
             category.Name = name;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var category = this.db
+            var category = await this.db
                 .Categories
-                .FirstOrDefault(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (category == null)
             {
-                return;
+                return false;
             }
 
             this.db.Categories.Remove(category);
             this.db.SaveChanges();
+
+            return true;
         }
 
         public async Task<bool> ExistsAsync(string name)

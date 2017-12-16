@@ -28,7 +28,7 @@
     <div class="col-xs-12 text-center">
         @if (this.User.IsInRole(WebConstants.AdvertiserArea) && this.User.Identity.Name == Model.Ad.User)
         {
-            <a asp-area="Advertiser" asp-controller="Ad" asp-action="AddPhoto" asp-route-adid="@Model.Ad.Id"
+            <a asp-area="Advertiser" asp-controller="Photos" asp-action="AddPhoto" asp-route-adid="@Model.Ad.Id"
                class="btn btn-success">Add New Photo</a>
             <a asp-area="Advertiser" asp-controller="Ad" asp-action="Edit" asp-route-id="@Model.Ad.Id"
                class="btn btn-warning">Edit</a>   

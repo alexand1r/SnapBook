@@ -10,6 +10,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Snapbook.Web.Infrastructure.Extensions;
 
     public class AlbumsController : BaseController
     {
@@ -30,15 +31,51 @@
             this.userManager = userManager;
         }
 
+        public async Task<ActionResult> CreateAlbum()
+        {
+            var categoriess = await this.GetCategories();
+
+            return this.View(new CreateAlbumViewModel
+            {
+                Categories = categoriess
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAlbum(CreateAlbumViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                model.Categories = await this.GetCategories();
+                return this.View(model);
+            }
+
+            var userId = this.userManager.GetUserId(this.User);
+
+            this.albums.Create(
+                model.Title,
+                model.Description,
+                int.Parse(model.CategoryId),
+                userId);
+
+            this.TempData.AddSuccessMessage($"Album {model.Title} has been successfully created.");
+            return this.RedirectToAction("Index", "Home", new { area = "" });
+        }
+
         public async Task<IActionResult> Edit(int id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
             var album = await this.albums.Find(id);
 
-            if (user.Id != album.UserId)
+            if (album == null)
             {
                 return this.NotFound();
+            }
+
+            if (user.Id != album.UserId)
+            {
+                return this.RedirectToAction("AccessDenied", "Account");
             }
 
             var categoriess = await this.GetCategories();
@@ -61,32 +98,28 @@
                 return this.View(model);
             }
 
-            this.albums.Edit(
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var album = await this.albums.Find(id);
+
+            if (user.Id != album.UserId)
+            {
+                return this.BadRequest();
+            }
+
+            var success = await this.albums.Edit(
                 model.Title,
                 model.Description,
                 int.Parse(model.CategoryId),
                 id);
 
-            return this.RedirectToAction("Details", "Albums", new { area = "", id = id });
-        }
+            if (!success)
+            {
+                return this.BadRequest();
+            }
 
-        public IActionResult AddPhoto(int albumId)
-            => this.View();
-
-        [HttpPost]
-        [ValidateModelState]
-        public IActionResult AddPhoto(int albumId, AddPhotoToAlbumViewModel model)
-        {
-            this.photos.Create(
-                model.Description,
-                model.ImageUrl,
-                model.Location,
-                model.Latitude,
-                model.Longitude,
-                model.Tags,
-                albumId);
-
-            return this.RedirectToAction("Details", "Albums", new { area = "", id = albumId});
+            this.TempData.AddSuccessMessage($"Album {model.Title} details have been successfully changed.");
+            return this.RedirectToAction("Details", "Albums", new { Area = "", id = id });
         }
 
         private async Task<IEnumerable<SelectListItem>> GetCategories()

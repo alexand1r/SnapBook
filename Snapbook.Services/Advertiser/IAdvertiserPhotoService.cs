@@ -4,7 +4,7 @@
 
     public interface IAdvertiserPhotoService
     {
-       void Create(
+       Task<bool> Create(
             string description,
             string imageUrl,
             string location,

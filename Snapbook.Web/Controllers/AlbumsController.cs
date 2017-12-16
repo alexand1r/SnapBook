@@ -17,6 +17,11 @@
         {
             var album = await this.albums.Details(id);
 
+            if (album == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(album);
         }
     }

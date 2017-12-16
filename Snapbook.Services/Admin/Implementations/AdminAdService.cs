@@ -17,17 +17,21 @@
             this.db = db;
         }
 
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var ad = this.db.Ads.FirstOrDefault(a => a.Id == id);
+            var ad = await this.db
+                .Ads
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             if (ad == null)
             {
-                return;
+                return false;
             }
 
             this.db.Ads.Remove(ad);
             this.db.SaveChanges();
+
+            return true;
         }
 
         public async Task<IEnumerable<AdListingServiceModel>> All()
@@ -42,19 +46,20 @@
                 .Ads
                 .AnyAsync(a => a.Id == id);
 
-        public void Edit(
+        public async Task<bool> Edit(
             string name,
             string description,
             string imageUrl,
             string website,
-            string userId,
             int id)
         {
-            var ad = this.db.Ads.FirstOrDefault(a => a.Id == id);
+            var ad = await this.db
+                .Ads
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             if (ad == null)
             {
-                return;
+                return false;
             }
 
             ad.Name = name;
@@ -63,6 +68,8 @@
             ad.Website = website;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
         public async Task<AdEditServiceModel> FindForEdit(int id)

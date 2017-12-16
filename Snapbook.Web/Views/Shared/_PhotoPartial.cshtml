@@ -145,7 +145,8 @@
                 '><h3><i class="fa fa-heart" aria-hidden="true"></i></h3></a>');
     }
     var ajaxLikeError_@Model.Photo.Id = function () {
-        alert('Error: Could not like.');
+        var messageDiv = $('<div class="alert alert-error text-center">Error: Could not like.</div>');
+        $('.body-content').prepend(messageDiv);
     }
 
     var ajaxUnlikeSuccess_@Model.Photo.Id = function () {
@@ -162,10 +163,11 @@
                 '><h3><i class="fa fa-heart-o" aria-hidden="true"></i></h3></a>');
     }
     var ajaxUnlikeError_@Model.Photo.Id = function () {
-        alert('Error: Could not unlike.');
+        var messageDiv = $('<div class="alert alert-error text-center">Error: Could not unlike.</div>');
+        $('.body-content').prepend(messageDiv);
     }
 
-    var ajaxSaveSuccess_@Model.Photo.Id = function () {
+    var ajaxSaveSuccess_@Model.Photo.Id = function (message) {
         $('#ajaxSaveLink-@Model.Photo.Id').empty();
 
         $('#ajaxSaveLink-@Model.Photo.Id')
@@ -174,13 +176,17 @@
                 'data-ajax-method="POST" ' +
                 'data-ajax-success="ajaxUnsaveSuccess_@Model.Photo.Id" ' +
                 'data-ajax-error="ajaxUnsaveError_@Model.Photo.Id" ' +
-                '><h3><i class="fa fa-bookmark" aria-hidden="true"></i></h3></a>');
+            '><h3><i class="fa fa-bookmark" aria-hidden="true"></i></h3></a>');
+
+        var messageDiv = $('<div class="alert alert-success text-center">' + message + '</div>');
+        $('.body-content').prepend(messageDiv);
     }
-    var ajaxSaveError_@Model.Photo.Id = function () {
-        alert('Error: Could not save.');
+    var ajaxSaveError_@Model.Photo.Id = function (message) {
+        var messageDiv = $('<div class="alert alert-error text-center">' + message + '</div>');
+        $('.body-content').prepend(messageDiv);
     }
 
-    var ajaxUnsaveSuccess_@Model.Photo.Id = function () {
+    var ajaxUnsaveSuccess_@Model.Photo.Id = function (message) {
         $('#ajaxSaveLink-@Model.Photo.Id').empty();
 
         $('#ajaxSaveLink-@Model.Photo.Id')
@@ -189,9 +195,13 @@
                 'data-ajax-method="POST" ' +
                 'data-ajax-success="ajaxSaveSuccess_@Model.Photo.Id" ' +
                 'data-ajax-error="ajaxSaveError_@Model.Photo.Id" ' +
-                '><h3><i class="fa fa-bookmark-o" aria-hidden="true"></i></h3></a>');
+            '><h3><i class="fa fa-bookmark-o" aria-hidden="true"></i></h3></a>');
+
+        var messageDiv = $('<div class="alert alert-success text-center">' + message + '</div>');
+        $('.body-content').prepend(messageDiv);
     }
-    var ajaxUnsaveError_@Model.Photo.Id = function () {
-        alert('Error: Could not unsave.');
+    var ajaxUnsaveError_@Model.Photo.Id = function (message) {
+        var messageDiv = $('<div class="alert alert-error text-center">' + message + '</div>');
+        $('.body-content').prepend(messageDiv);
     }
 </script>

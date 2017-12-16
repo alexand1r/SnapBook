@@ -10,6 +10,7 @@
     using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Snapbook.Web.Infrastructure.Extensions;
 
     [Authorize]
     [Route("[controller]/[action]")]
@@ -24,9 +25,9 @@
             SignInManager<User> signInManager,
             ILogger<AccountController> logger)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._logger = logger;
         }
 
         [TempData]
@@ -56,6 +57,7 @@
                 var result = await this._signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    this.TempData.AddSuccessMessage($"User {model.UserName} has successfully logged in.");
                     this._logger.LogInformation("User logged in.");
                     return this.RedirectToLocal(returnUrl);
                 }
@@ -222,6 +224,7 @@
                 var result = await this._userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    this.TempData.AddSuccessMessage($"User {user.UserName} has successfully registered.");
                     this._logger.LogInformation("User created a new account with password.");
                     if (model.IsAdvertiser)
                     {
@@ -273,33 +276,34 @@
         {
             if (remoteError != null)
             {
-                ErrorMessage = $"Error from external provider: {remoteError}";
-                return RedirectToAction(nameof(Login));
+                this.ErrorMessage = $"Error from external provider: {remoteError}";
+                return this.RedirectToAction(nameof(Login));
             }
-            var info = await _signInManager.GetExternalLoginInfoAsync();
+            var info = await this._signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                return RedirectToAction(nameof(Login));
+                return this.RedirectToAction(nameof(Login));
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            var result = await this._signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-                _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
-                return RedirectToLocal(returnUrl);
+                this._logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+                return this.RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
             {
-                return RedirectToAction(nameof(Lockout));
+                return this.RedirectToAction(nameof(this.Lockout));
             }
             else
             {
                 // If the user does not have an account, then ask the user to create an account.
-                ViewData["ReturnUrl"] = returnUrl;
-                ViewData["LoginProvider"] = info.LoginProvider;
+                this.ViewData["ReturnUrl"] = returnUrl;
+                this.ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+                var username = info.Principal.FindFirstValue(ClaimTypes.Name).Trim();
+                return this.View("ExternalLogin", new ExternalLoginViewModel { UserName = username, Email = email });
             }
         }
 
@@ -308,31 +312,41 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginViewModel model, string returnUrl = null)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await _signInManager.GetExternalLoginInfoAsync();
+                var info = await this._signInManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user);
+                var user = new User { UserName = model.UserName, Email = model.Email };
+                var result = await this._userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
+                    if (model.IsAdvertiser)
+                    {
+                        await this._userManager.AddToRoleAsync(user, WebConstants.AdvertiserRole);
+                    }
+                    else
+                    {
+                        await this._userManager.AddToRoleAsync(user, WebConstants.UserRole);
+                    }
+
+                    this.TempData.AddSuccessMessage($"User {user.UserName} has successfully logged in.");
+                    result = await this._userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-                        return RedirectToLocal(returnUrl);
+                        await this._signInManager.SignInAsync(user, isPersistent: false);
+                        this._logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        return this.RedirectToLocal(returnUrl);
                     }
                 }
-                AddErrors(result);
+                this.AddErrors(result);
             }
 
-            ViewData["ReturnUrl"] = returnUrl;
-            return View(nameof(ExternalLogin), model);
+            this.ViewData["ReturnUrl"] = returnUrl;
+            return this.View(nameof(this.ExternalLogin), model);
         }
 
         [HttpGet]

@@ -28,7 +28,7 @@
                 .ProjectTo<EditPhotoServiceModel>()
                 .FirstOrDefaultAsync();
 
-        public void Edit(
+        public async Task<bool> Edit(
             int id,
             string description,
             string location,
@@ -36,13 +36,13 @@
             string longitude,
             string tags)
         {
-            var photo = this.db
+            var photo = await this.db
                 .Photos
-                .FirstOrDefault(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (photo == null)
             {
-                return;
+                return false;
             }
 
             photo.Description = description;
@@ -71,12 +71,13 @@
             }
 
             this.db.SaveChanges();
+
+            return true;
         }
 
         public async Task<IEnumerable<PhotoHomeServiceModel>> All()
             => await this.db
                 .Photos
-                //.Where(p => p.Album != null)
                 .OrderByDescending(p => p.Id)
                 .ProjectTo<PhotoHomeServiceModel>()
                 .ToListAsync();
@@ -91,6 +92,11 @@
         public async Task<IEnumerable<PhotoRelatedServiceModel>> RelatedPhotos(int id)
         {
             var photo = await this.db.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (photo == null)
+            {
+                return new List<PhotoRelatedServiceModel>();
+            }
 
             if (photo.AlbumId != null)
             {

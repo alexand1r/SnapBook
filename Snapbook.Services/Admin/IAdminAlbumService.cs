@@ -6,7 +6,7 @@
 
     public interface IAdminAlbumService
     {
-        void Delete(int id);
+        Task<bool> Delete(int id);
 
         Task<IEnumerable<AlbumListingServiceModel>> All();
 
@@ -14,6 +14,6 @@
 
         Task<EditAlbumServiceModel> Find(int id);
 
-        void Edit(string title, string description, int categoryId, int albumId);
+        Task<bool> Edit(string title, string description, int categoryId, int albumId);
     }
 }

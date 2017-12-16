@@ -25,13 +25,19 @@
                 .ProjectTo<EditAlbumServiceModel>()
                 .FirstOrDefaultAsync();
 
-        public void Edit(string title, string description, int categoryId, int albumId)
+        public async Task<bool> Edit(
+            string title, 
+            string description, 
+            int categoryId, 
+            int albumId)
         {
-            var album = this.db.Albums.FirstOrDefault(a => a.Id == albumId);
+            var album = await this.db
+                .Albums
+                .FirstOrDefaultAsync(a => a.Id == albumId);
 
             if (album == null)
             {
-                return;
+                return false;
             }
 
             album.Title = title;
@@ -39,6 +45,8 @@
             album.CategoryId = categoryId;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
         public void Create(

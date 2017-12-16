@@ -7,7 +7,7 @@
     {
         Task<EditAlbumServiceModel> Find(int id);
 
-        void Edit(
+        Task<bool> Edit(
             string title,
             string description,
             int categoryId,

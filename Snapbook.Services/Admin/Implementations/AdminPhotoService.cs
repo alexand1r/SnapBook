@@ -19,13 +19,15 @@
             this.db = db;
         }
 
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var photo = this.db.Photos.FirstOrDefault(a => a.Id == id);
+            var photo = await this.db
+                .Photos
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             if (photo == null)
             {
-                return;
+                return false;
             }
 
             var likers = this.db.UsersLikedImages.Where(uli => uli.PhotoId == photo.Id).ToList();
@@ -43,6 +45,8 @@
 
             this.db.Photos.Remove(photo);
             this.db.SaveChanges();
+
+            return true;
         }
 
         public async Task<IEnumerable<PhotoListingServiceModel>> All()

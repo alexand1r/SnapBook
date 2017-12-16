@@ -28,20 +28,22 @@
             return userProfile;
         }
 
-        public void EditProfilePic(string username, string imageUrl)
+        public async Task<bool> EditProfilePic(string username, string imageUrl)
         {
-            var user = this.db
+            var user = await this.db
                 .Users
-                .FirstOrDefault(u => u.UserName == username);
+                .FirstOrDefaultAsync(u => u.UserName == username);
 
             if (user == null)
             {
-                return;
+                return false;
             }
 
             user.ProfilePicUrl = imageUrl;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
         public async Task<IEnumerable<UserListingServiceModel>> Find(string searchText)

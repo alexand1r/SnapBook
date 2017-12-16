@@ -9,6 +9,7 @@
     using Services;
     using System.Linq;
     using System.Threading.Tasks;
+    using Snapbook.Web.Infrastructure.Extensions;
 
     public class PhotosController : Controller
     {
@@ -30,11 +31,16 @@
 
             var photo = await this.photos.FindForEdit(id);
 
-            if (user.Id != photo.AdUserId 
-                && user.Id != photo.UserId 
-                && !this.User.IsInRole(WebConstants.AdministratorRole))
+            if (photo == null)
             {
                 return this.NotFound();
+            }
+
+            if (user.Id != photo.AdUserId 
+                && user.Id != photo.AlbumUserId 
+                && !this.User.IsInRole(WebConstants.AdministratorRole))
+            {
+                return this.RedirectToAction("AccessDenied", "Account");
             }
 
             return this.View(new EditPhotoViewModel
@@ -45,16 +51,26 @@
                 Longitude = photo.Longitude,
                 Latitude = photo.Latitude,
                 Tags = string.Join(" ", photo.Tags.Select(t => t.Content).ToList()),
-                UserId = photo.UserId
+                AlbumUserId = photo.AlbumUserId,
+                AdUserId = photo.AdUserId
             });
         }
 
         [Authorize]
         [HttpPost]
         [ValidateModelState]
-        public IActionResult Edit(int id, EditPhotoViewModel model)
+        public async Task<IActionResult> Edit(int id, EditPhotoViewModel model)
         {
-            this.photos.Edit(
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (user.Id != model.AdUserId
+                && user.Id != model.AlbumUserId
+                && !this.User.IsInRole(WebConstants.AdministratorRole))
+            {
+                return this.BadRequest();
+            }
+
+            var success = await this.photos.Edit(
                 id,
                 model.Description,
                 model.Location,
@@ -62,11 +78,24 @@
                 model.Longitude,
                 model.Tags);
 
+            if (!success)
+            {
+                return this.BadRequest();
+            }
+
+            this.TempData.AddSuccessMessage($"The photo details have been successfully changed.");
             return this.RedirectToAction("Details", "Photos", new { area = "", id = id });
         }
 
         public async Task<IActionResult> Details(int id)
         {
+            var photo = await this.photos.Details(id);
+
+            if (photo == null)
+            {
+                return this.NotFound();
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             var canSave = false;
@@ -77,8 +106,6 @@
                 canLike = await this.photos.CanLike(user.Id, id);
                 canSave = await this.photos.CanSave(user.Id, id);
             }
-
-            var photo = await this.photos.Details(id);
 
             var relatedPhotos = await this.photos.RelatedPhotos(id);
 
@@ -97,13 +124,11 @@
         public async Task<IActionResult> Comment(int photoId, CreateCommentViewModel model)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-
-            var userId = user?.Id;
-
+            
             var result = await this.photos.Comment(
                 photoId,
                 model.Content,
-                userId);
+                user?.Id);
 
             return this.PartialView("_Comments", result);
         }
@@ -133,21 +158,35 @@
         }
 
         [Authorize]
-        public async Task<bool> Save(int photoId)
+        public async Task<string> Save(int photoId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            return await this.photos
+            var hasSaved = await this.photos
                 .Save(user.Id, photoId);
+
+            if (!hasSaved)
+            {
+                return $"Error: Photo not saved.";
+            }
+
+            return $"The photo has been successufully saved.";
         }
 
         [Authorize]
-        public async Task<bool> Unsave(int photoId)
+        public async Task<string> Unsave(int photoId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            return await this.photos
+            var hasUnsaved = await this.photos
                 .Unsave(user.Id, photoId);
+
+            if (!hasUnsaved)
+            {
+                return $"Error: Photo is still saved.";
+            }
+
+            return $"The photo has been successfully unsaved.";
         }
     }
 }

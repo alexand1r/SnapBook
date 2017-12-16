@@ -5,6 +5,7 @@
     using Models.Categories;
     using Services.Admin;
     using System.Threading.Tasks;
+    using Snapbook.Web.Infrastructure.Extensions;
 
     public class CategoriesController : BaseController
     {
@@ -28,6 +29,7 @@
             this.categories.Create(
                 model.Name);
 
+            this.TempData.AddSuccessMessage($"Category {model.Name} has been successfully created.");
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -48,29 +50,31 @@
 
         [HttpPost]
         [ValidateModelState]
-        public IActionResult Edit(int id, EditCategoryViewModel model)
+        public async Task<IActionResult> Edit(int id, EditCategoryViewModel model)
         {
-            this.categories.Edit(
+            var success = await this.categories.Edit(
                 id,
                 model.Name);
 
+            if (!success)
+            {
+                return this.BadRequest();
+            }
+
+            this.TempData.AddSuccessMessage($"Category {model.Name} details have been successfully changed.");
             return this.RedirectToAction(nameof(this.All));
         }
         
-        public async Task<bool> Delete(int id)
+        public async Task<string> Delete(int id)
         {
-            var category = await this.categories.Find(id);
+            var success = await this.categories.Delete(id);
 
-            if (category == null)
+            if (!success)
             {
-                //return this.NotFound();
-                return false;
+                return $"Category Not Found.";
             }
 
-            this.categories.Delete(id);
-
-            //return this.RedirectToAction(nameof(this.All));
-            return true;
+            return $"The category has been successfully deleted.";
         }
     }
 }

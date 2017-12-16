@@ -6,19 +6,17 @@
     using Snapbook.Data.Models;
     using Snapbook.Services.Admin;
     using Snapbook.Web.Areas.Admin.Models.Ads;
+    using Snapbook.Web.Infrastructure.Extensions;
     using Snapbook.Web.Infrastructure.Filters;
 
     public class AdsController : BaseController
     {
         private readonly IAdminAdService ads;
-        private readonly UserManager<User> userManager;
         
         public AdsController(
-            IAdminAdService ads,
-            UserManager<User> userManager)
+            IAdminAdService ads)
         {
             this.ads = ads;
-            this.userManager = userManager;
         }
 
         public async Task<IActionResult> All()
@@ -26,10 +24,9 @@
 
         public async Task<IActionResult> Edit(int id)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
             var ad = await this.ads.FindForEdit(id);
 
-            if (user == null || ad == null)
+            if (ad == null)
             {
                 return this.NotFound();
             }
@@ -47,38 +44,32 @@
         [ValidateModelState]
         public async Task<IActionResult> Edit(int id, EditAdViewModel model)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            if (user == null)
-            {
-                return this.NotFound();
-            }
-
-            this.ads.Edit(
+            var success = await this.ads.Edit(
                 model.Name,
                 model.Description,
                 model.AdProfilePicUrl,
                 model.Website,
-                user.Id,
                 id);
 
+            if (!success)
+            {
+                return this.BadRequest();
+            }
+
+            this.TempData.AddSuccessMessage($"Ad {model.Name} details have been successfully changed.");
             return this.RedirectToAction("Ad", "Users", new { area = "", id = id });
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<string> Delete(int id)
         {
-            var ad = await this.ads.Exists(id);
+            var success = await this.ads.Delete(id);
 
-            if (!ad)
+            if (!success)
             {
-                //return this.NotFound();
-                return false;
+                return $"Ad Not Found";
             }
 
-            this.ads.Delete(id);
-
-            //return this.RedirectToAction(nameof(this.All));
-            return true;
+            return $"The ad has been succesffuly deleted.";
         }
     }
 }

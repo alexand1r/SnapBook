@@ -6,18 +6,17 @@
 
     public interface IAdminAdService
     {
-        void Delete(int id);
+        Task<bool> Delete(int id);
 
         Task<IEnumerable<AdListingServiceModel>> All();
 
         Task<bool> Exists(int id);
 
-        void Edit(
+        Task<bool> Edit(
             string name,
             string description,
             string imageUrl,
             string website,
-            string userId,
             int id);
 
         Task<AdEditServiceModel> FindForEdit(int id);

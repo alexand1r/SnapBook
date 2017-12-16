@@ -73,7 +73,7 @@
                 return this.RedirectToAction(nameof(this.AddToRole));
             }
 
-            this.TempData.AddSuccessMessage($"User {user.UserName} success added to {model.Role} role.");
+            this.TempData.AddSuccessMessage($"User {user.UserName} successfully added to {model.Role} role.");
             await this.userManager.AddToRoleAsync(user, model.Role);
 
             return this.RedirectToAction(nameof(this.AddToRole));

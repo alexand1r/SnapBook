@@ -53,11 +53,14 @@
     </div>
 
 <script>
-    var ajaxDeleteSuccess_@photo.Id = function() {
+    var ajaxDeleteSuccess_@photo.Id = function(message) {
         $('#photo-' + '@photo.Id').remove();
+        var messageDiv = $('<div class="alert alert-success text-center">' + message + '</div>');
+        $('.body-content').prepend(messageDiv);
     }
     var ajaxDeleteError_@photo.Id = function() {
-        alert('Error: Deletion failed.');
+        var messageDiv = $('<div class="alert alert-error text-center">Error: Deletion failed.</div>');
+        $('.body-content').prepend(messageDiv);
     }
 </script>
 }

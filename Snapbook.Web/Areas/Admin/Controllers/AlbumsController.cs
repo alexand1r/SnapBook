@@ -9,21 +9,19 @@
     using Snapbook.Data.Models;
     using Snapbook.Services.Admin;
     using Snapbook.Web.Areas.Admin.Models.Albums;
+    using Snapbook.Web.Infrastructure.Extensions;
 
     public class AlbumsController : BaseController
     {
         private readonly IAdminAlbumService albums;
         private readonly IAdminCategoryService categories;
-        private readonly UserManager<User> userManager;
 
         public AlbumsController(
             IAdminAlbumService albums,
-            IAdminCategoryService categories,
-            UserManager<User> userManager)
+            IAdminCategoryService categories)
         {
             this.albums = albums;
             this.categories = categories;
-            this.userManager = userManager;
         }
 
         public async Task<IActionResult> All()
@@ -31,10 +29,13 @@
 
         public async Task<IActionResult> Edit(int id)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
             var album = await this.albums.Find(id);
-            
+
+            if (album == null)
+            {
+                return this.NotFound();
+            }
+
             var categoriess = await this.GetCategories();
 
             return this.View(new EditAlbumViewModel
@@ -55,29 +56,31 @@
                 return this.View(model);
             }
 
-            this.albums.Edit(
+            var success = await this.albums.Edit(
                 model.Title,
                 model.Description,
                 int.Parse(model.CategoryId),
                 id);
 
+            if (!success)
+            {
+                return this.BadRequest();
+            }
+
+            this.TempData.AddSuccessMessage($"Album {model.Title} details have been successfully changed.");
             return this.RedirectToAction("Details", "Albums", new { area = "", id = id });
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<string> Delete(int id)
         {
-            var album = await this.albums.Exists(id);
+            var success = await this.albums.Delete(id);
 
-            if (!album)
+            if (!success)
             {
-                //return this.NotFound();
-                return false;
+                return $"Album not found.";
             }
 
-            this.albums.Delete(id);
-
-            //return this.RedirectToAction(nameof(this.All));
-            return true;
+            return $"Album has been successfully deleted.";
         }
 
         private async Task<IEnumerable<SelectListItem>> GetCategories()
