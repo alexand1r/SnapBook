@@ -1,5 +1,7 @@
 ﻿namespace Snapbook.Web.Controllers
 {
+    using System;
+    using System.IO;
     using Data.Models;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Authorization;
@@ -8,6 +10,9 @@
     using Models.Photos;
     using Services;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Mime;
     using System.Threading.Tasks;
     using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Infrastructure.Extensions;
