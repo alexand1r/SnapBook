@@ -5,7 +5,10 @@
   },
   "compilationOptions": {
     "defines": [
+      "DEBUG",
       "TRACE",
+      "RELEASE",
+      "NETCOREAPP2_0",
       "RELEASE",
       "NETCOREAPP2_0"
     ],
@@ -17,7 +20,7 @@
     "keyFile": "",
     "emitEntryPoint": true,
     "xmlDoc": false,
-    "debugType": "portable"
+    "debugType": "full"
   },
   "targets": {
     ".NETCoreApp,Version=v2.0": {

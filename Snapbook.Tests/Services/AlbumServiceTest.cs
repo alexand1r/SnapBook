@@ -28,7 +28,7 @@
         public async Task FindShouldReturnNoResultOnNullSearchText()
         {
             // Arrange
-            Tests.Initialize();
+            //Tests.Initialize();
             var albumService = new AlbumService(this.db);
 
             // Act

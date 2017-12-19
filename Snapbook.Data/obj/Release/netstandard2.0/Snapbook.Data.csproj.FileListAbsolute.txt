@@ -6,3 +6,4 @@ C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Data\ob
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Data\obj\Release\netstandard2.0\Snapbook.Data.AssemblyInfo.cs
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Data\obj\Release\netstandard2.0\Snapbook.Data.dll
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Data\obj\Release\netstandard2.0\Snapbook.Data.pdb
+C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Data\obj\Release\netstandard2.0\Snapbook.Data.csprojResolveAssemblyReference.cache
