@@ -16,7 +16,6 @@
 
         public AdvertiserAdServiceTest()
         {
-            Tests.Initialize();
             this.db = Tests.GetDatabase();
             this.PopulateDb();
         }
@@ -25,6 +24,7 @@
         public async Task CreateAdShouldReturnFalseWithInvalidUserId()
         {
             // Arrange
+            Tests.Initialize();
             var advertiserAdService = new AdvertiserAdService(this.db);
 
             // Act
@@ -38,6 +38,7 @@
         public async Task CreateAdShouldReturnCorrectResults()
         {
             // Arrange
+            Tests.Initialize();
             var advertiserAdService = new AdvertiserAdService(this.db);
 
             // Act
