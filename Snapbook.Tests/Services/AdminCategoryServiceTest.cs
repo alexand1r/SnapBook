@@ -14,7 +14,6 @@
 
         public AdminCategoryServiceTest()
         {
-            Tests.Initialize();
             this.db = Tests.GetDatabase();
             this.PopulateDb();
         }
@@ -23,6 +22,7 @@
         public async Task DeleteShouldReturnFalseWithInvalidId()
         {
             // Arrange
+            Tests.Initialize();
             var adminCategoryService = new AdminCategoryService(this.db);
 
             // Act
@@ -36,6 +36,7 @@
         public async Task DeleteShouldReturnCorrectResults()
         {
             // Arrange
+            Tests.Initialize();
             var adminCategoryService = new AdminCategoryService(this.db);
 
             // Act
