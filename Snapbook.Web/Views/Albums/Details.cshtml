@@ -6,20 +6,33 @@
 <section id="album" class="col-xs-12">
     <div class="album-info col-xs-12">
         <div class="info col-xs-12 text-center center-block">
-            <h1>@Model.Title</h1>
-            <p><em>by 
-                <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Username">
-                    @Model.Username
-                </a></em>
+            
+            @*DISPLAY TITLE*@
+            <h1>@Html.DisplayFor(m => m.Title)</h1>
+            
+            @*DISPLAY PROFILE*@
+            <p>
+                <em>by
+                    <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Username">
+                        @Html.DisplayFor(m => m.Username)
+                    </a>
+                </em>
             </p>
-            <p>Category: <em>@Model.CategoryName</em></p>
+            
+            @*DISPLAY CATEGORY*@
+            <p>Category: <em>@Html.DisplayFor(m => m.CategoryName)</em></p>
+
         </div>
     </div>
+    
+    @*DISPLAY DESCRIPTION*@
     <div class="col-xs-12 col-sm-offset-3 col-sm-6 text-justify">
         <p class="desc text-center">
-            @Model.Description
+            @Html.DisplayFor(m => m.Description)
         </p>
     </div>
+    
+    @*DISPLAY CRUD BUTTONS*@
     <div class="col-xs-12 text-center">
         @if (this.User.IsInRole(WebConstants.AdministratorRole))
         {
@@ -38,6 +51,8 @@
                class="btn btn-warning">Edit</a>
         }
     </div>
+    
+    @*DISPLAY ALBUM PHOTOS*@
     <div class="col-xs-12 text-center tabs">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#album-photos"><i class="fa fa-users" aria-hidden="true"></i> Photos</a></li>

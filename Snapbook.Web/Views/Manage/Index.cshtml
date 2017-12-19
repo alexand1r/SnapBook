@@ -10,42 +10,47 @@
 <div class="row">
     <div class="col-md-6">
         <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="Username"></label>
+                <label>@Html.DisplayNameFor(m => m.Username)</label>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </div>
-                    <input asp-for="Username" required class="form-control" disabled />
+                    @Html.TextBoxFor(m => m.Username, new {disabled = "disabled", @class = "form-control"})
                 </div>
             </div>
+
             <div class="form-group">
-                <label asp-for="Name"></label>
+                <label>@Html.DisplayNameFor(m => m.Name)</label>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-user-o" aria-hidden="true"></i>
                     </div>
-                    <input asp-for="Name" required class="form-control" />
+                    @Html.TextBoxFor(m => m.Name, new {required = "required", @class = "form-control"})
                 </div>
-                <span asp-validation-for="Name" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <label asp-for="Bio"></label>
+                <label>@Html.DisplayNameFor(m => m.Bio)</label>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-font" aria-hidden="true"></i>
                     </div>
-                    <textarea asp-for="Bio" rows="5" class="form-control"></textarea>
+                    @Html.TextAreaFor(m => m.Bio, new {rows = "5", @class = "form-control"})
                 </div>
-                <span asp-validation-for="Bio" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Bio, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <label asp-for="Email"></label>
+                <label>@Html.DisplayNameFor(m => m.Email)</label>
                 @if (Model.IsEmailConfirmed)
                 {
                     <div class="input-group">
-                        <input asp-for="Email" required class="form-control" />
+                        <input asp-for="Email" required class="form-control"/>
                         <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
                     </div>
                 }
@@ -55,21 +60,27 @@
                         <div class="input-group-addon">
                             <i class="fa fa-at" aria-hidden="true"></i>
                         </div>
-                        <input asp-for="Email" class="form-control" />
+                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
                     </div>
                 }
-                <span asp-validation-for="Email" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <label asp-for="BirthDate"></label>
+                <label>@Html.DisplayNameFor(m => m.BirthDate)</label>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                     </div>
-                    <input asp-for="BirthDate" type="date" class="form-control" />
+                    <input asp-for="BirthDate" type="date" class="form-control"/>
                 </div>
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.BirthDate, "", new { @class = "text-danger" })
             </div>
+
+            <div class="form-group">
+                <recaptcha/>
+            </div>
+
             <button type="submit" class="btn btn-default">Save</button>
         </form>
     </div>
@@ -77,4 +88,5 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <recaptcha-script />
 }

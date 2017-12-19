@@ -8,6 +8,8 @@
     using Services;
     using System.Diagnostics;
     using System.Threading.Tasks;
+    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Microsoft.AspNetCore.Http;
     using Snapbook.Web.Models.Home;
 
     public class HomeController : Controller
@@ -45,16 +47,24 @@
         }
 
         public IActionResult Search(SearchViewModel model)
-            => this.View(new SearchViewModel{Results = null});
+        {
+            return this.View(new SearchViewModel
+            {
+                Current = "users",
+                Results = new SearchResultsViewModel
+                {
+                    Current = "users"
+                }
+            });
+        }
 
         public async Task<IActionResult> SearchResults(SearchViewModel model)
         {
-            var viewModel = new SearchViewModel
-            {
-                SearchText = model.SearchText
-            };
+            var current = model.Current;
 
             var results = new SearchResultsViewModel();
+
+            results.Current = current;
 
             if (model.SearchInAlbums)
             {
@@ -75,8 +85,6 @@
             {
                 results.Ads = await this.ads.FindForListing(model.SearchText);
             }
-
-            viewModel.Results = results;
 
             return this.PartialView("_SearchResults", results);
         }

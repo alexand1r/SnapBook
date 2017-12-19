@@ -15,5 +15,7 @@
         public IEnumerable<PhotoListingServiceModel> Photos { get; set; } = new List<PhotoListingServiceModel>();
 
         public IEnumerable<AdListingServiceModel> Ads { get; set; } = new List<AdListingServiceModel>();
+
+        public string Current { get; set; }
     }
 }

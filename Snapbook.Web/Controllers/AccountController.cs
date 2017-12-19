@@ -10,6 +10,7 @@
     using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Infrastructure.Extensions;
 
     [Authorize]
@@ -46,6 +47,7 @@
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateRecaptcha]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
@@ -208,6 +210,7 @@
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateRecaptcha]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
@@ -309,6 +312,7 @@
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateRecaptcha]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginViewModel model, string returnUrl = null)
         {

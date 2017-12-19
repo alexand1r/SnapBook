@@ -9,6 +9,7 @@
     using Services;
     using System.Linq;
     using System.Threading.Tasks;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Infrastructure.Extensions;
 
     public class PhotosController : Controller
@@ -51,20 +52,30 @@
                 Longitude = photo.Longitude,
                 Latitude = photo.Latitude,
                 Tags = string.Join(" ", photo.Tags.Select(t => t.Content).ToList()),
-                AlbumUserId = photo.AlbumUserId,
-                AdUserId = photo.AdUserId
             });
         }
 
         [Authorize]
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> Edit(int id, EditPhotoViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
-            if (user.Id != model.AdUserId
-                && user.Id != model.AlbumUserId
+            var photo = await this.photos.FindForEdit(id);
+
+            if (photo == null)
+            {
+                return this.BadRequest();
+            }
+
+            if (user.Id != photo.AdUserId
+                && user.Id != photo.AlbumUserId
                 && !this.User.IsInRole(WebConstants.AdministratorRole))
             {
                 return this.BadRequest();
@@ -119,7 +130,6 @@
             });
         }
         
-        [ValidateModelState]
         [Notification]
         public async Task<IActionResult> Comment(int photoId, CreateCommentViewModel model)
         {

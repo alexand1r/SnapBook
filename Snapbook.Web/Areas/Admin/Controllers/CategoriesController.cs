@@ -5,6 +5,7 @@
     using Models.Categories;
     using Services.Admin;
     using System.Threading.Tasks;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Infrastructure.Extensions;
 
     public class CategoriesController : BaseController
@@ -23,9 +24,14 @@
             => this.View();
 
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public IActionResult Create(CreateCategoryViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             this.categories.Create(
                 model.Name);
 
@@ -49,9 +55,14 @@
         }
 
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> Edit(int id, EditCategoryViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var success = await this.categories.Edit(
                 id,
                 model.Name);

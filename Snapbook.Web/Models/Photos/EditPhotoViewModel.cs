@@ -17,10 +17,6 @@
 
         public string Longitude { get; set; }
 
-        public string AlbumUserId { get; set; }
-
-        public string AdUserId { get; set; }
-
         public string Tags { get; set; }
     }
 }

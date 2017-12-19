@@ -1,9 +1,9 @@
 ﻿@model UserProfileServiceModel
 @{
-    ViewData["Title"] = $"Profile {Model.Username}";
+    ViewData["Title"] = $"Profile {Model.UserName}";
 }
 
-@{ var isAuthor = User.Identity.IsAuthenticated && User.Identity.Name == Model.Username; }
+@{ var isAuthor = User.Identity.IsAuthenticated && User.Identity.Name == Model.UserName; }
 
 <section id="profile" class="col-xs-12">
     <div class="profile-info col-xs-12">
@@ -20,13 +20,13 @@
                     }
                 </div>
                 <div class="names">
-                    <h3>@Model.Username</h3>
+                    <h3>@Model.UserName</h3>
                     <h4>@Model.Name</h4>
                 </div>
             </div>
         </div>
         
-        @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.Username)
+        @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.UserName)
         {
             <div class="edit col-xs-12 col-sm-5">
                 <div class="col-md-8">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="panel-body">
                             <div>
-                                <a asp-area="" asp-controller="Users" asp-action="ChangeProfilePic" asp-route-username="@Model.Username">Change Profile Photo</a>
+                                <a asp-area="" asp-controller="Users" asp-action="ChangeProfilePic" asp-route-username="@Model.UserName">Change Profile Photo</a>
                             </div>
                             <div>
                                 <a asp-area="" asp-controller="Manage" asp-action="ChangePassword">Change Password</a>
@@ -59,7 +59,7 @@
         }
     </div>
     <div class="col-xs-12 text-center">
-        @if (this.User.IsInRole(WebConstants.UserRole) && this.User.Identity.Name == Model.Username)
+        @if (this.User.IsInRole(WebConstants.UserRole) && this.User.Identity.Name == Model.UserName)
         {
             <a asp-area="User" asp-controller="Albums" asp-action="CreateAlbum" class="btn btn-success">Create New Album</a>
         }
@@ -67,7 +67,10 @@
     <div class="col-xs-12 text-center tabs">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#albums"><i class="fa fa-users" aria-hidden="true"></i> Albums</a></li>
-            <li><a data-toggle="tab" href="#saved"><i class="fa fa-folder" aria-hidden="true"></i> Saved</a></li>
+            @if (this.User.Identity.Name == Model.UserName)
+            {
+                <li><a data-toggle="tab" href="#saved"><i class="fa fa-folder" aria-hidden="true"></i> Saved</a></li>
+            }
         </ul>
 
         <div class="tab-content">
@@ -98,7 +101,7 @@
                 }
             </div>
             <div id="saved" class="tab-pane fade">
-                @if (this.User.Identity.IsAuthenticated && this.User.Identity.Name == Model.Username)
+                @if (this.User.Identity.IsAuthenticated && this.User.Identity.Name == Model.UserName)
                 {
                     if (Model.SavedPhotos.Any())
                     {

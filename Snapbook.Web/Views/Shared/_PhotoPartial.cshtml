@@ -33,24 +33,26 @@
                     @if (Model.Photo.AdId == null)
                     {
                         <a asp-area="" asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Photo.AlbumAuthor">
-                            <h4>@Model.Photo.AlbumAuthor</h4>
+                            <h4>@Html.DisplayFor(m => m.Photo.AlbumAuthor)</h4>
                         </a>
                     }
                     else
                     {
                         <a asp-area="" asp-controller="Users" asp-action="Ad" asp-route-id="@Model.Photo.AdId">
-                            <h4>@Model.Photo.AdName</h4>
+                            <h4>@Html.DisplayFor(m => m.Photo.AdName)</h4>
                         </a>
                     }
                 </div>
                 <div>
-                    <a href="http://maps.google.com/?q=@Model.Photo.Latitude,@Model.Photo.Longitude" class="text-primary"><small>@Model.Photo.Location</small></a>
+                    <a href="http://maps.google.com/?q=@Model.Photo.Latitude,@Model.Photo.Longitude" target="_blank" class="text-primary">
+                        <small>@Html.DisplayFor(m => m.Photo.Location)</small>
+                    </a>
                 </div>
             </div>
         </div>
         
         <div class="home-photo-desc">
-            <p>@Model.Photo.Description</p>
+            <p>@Html.DisplayFor(m => m.Photo.Description)</p>
         </div>
         
         <div class="home-photo-tags col-xs-12">
@@ -121,7 +123,7 @@
                 @Html.Partial("_Likes", Model.Photo.Likes)
             </div>
             <div class="home-photo-comments col-xs-6">
-                <h5>@Model.Photo.Comments comments</h5>
+                <h5>@Html.DisplayFor(m => m.Photo.Comments) comments</h5>
             </div>
             <div class="home-photo-date col-xs-12">
                 <small><em>@Model.Photo.PublishDate.ToString("MMMM dd, yyyy")</em></small>

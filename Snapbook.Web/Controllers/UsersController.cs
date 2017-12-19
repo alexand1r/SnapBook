@@ -8,6 +8,7 @@
     using Models.Users;
     using Snapbook.Services;
     using System.Threading.Tasks;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Infrastructure.Extensions;
 
     [Authorize]
@@ -61,9 +62,14 @@
         }
 
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> ChangeProfilePic(string username, EditProfilePicViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var success = await this.users.EditProfilePic(username, model.ImageUrl);
 
             if (!success)

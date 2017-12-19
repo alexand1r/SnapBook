@@ -10,22 +10,20 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Infrastructure.Extensions;
 
     public class AlbumsController : BaseController
     {
-        private readonly IUserPhotoService photos;
         private readonly IUserCategoryService categories;
         private readonly IUserAlbumService albums;
         private readonly UserManager<User> userManager;
 
         public AlbumsController(
-            IUserPhotoService photos,
             IUserCategoryService categories,
             IUserAlbumService albums,
             UserManager<User> userManager)
         {
-            this.photos = photos;
             this.categories = categories;
             this.albums = albums;
             this.userManager = userManager;
@@ -42,6 +40,7 @@
         }
 
         [HttpPost]
+        [ValidateRecaptcha]
         public async Task<IActionResult> CreateAlbum(CreateAlbumViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -90,6 +89,7 @@
         }
 
         [HttpPost]
+        [ValidateRecaptcha]
         public async Task<IActionResult> Edit(int id, EditAlbumViewModel model)
         {
             if (!this.ModelState.IsValid)

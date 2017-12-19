@@ -4,11 +4,11 @@
     using Common.Mapping;
     using Data.Models;
 
-    public class SavedPhotoListingServiceModel : IMapFrom<Photo>, IHaveCustomMapping
+    public class SavedPhotoListingServiceModel : PhotoListingServiceModel, IHaveCustomMapping
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
-        public string ImageUrl { get; set; }
+        //public string ImageUrl { get; set; }
 
         public string AlbumAuthor { get; set; }
 
@@ -18,11 +18,11 @@
 
         public string AdAuthorId { get; set; }
 
-        public int Likes { get; set; }
+        //public int Likes { get; set; }
 
-        public int Comments { get; set; }
+        //public int Comments { get; set; }
 
-        public void ConfigureMapping(Profile mapper)
+        public new void ConfigureMapping(Profile mapper)
             => mapper
                 .CreateMap<Photo, SavedPhotoListingServiceModel>()
                 .ForMember(spl => spl.AlbumAuthor, cfg => cfg.MapFrom(p => p.Album.User.UserName))

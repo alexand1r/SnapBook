@@ -1,17 +1,24 @@
 ﻿@model SearchResultsViewModel
-<link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css" />
 
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#users"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
-    <li><a data-toggle="tab" href="#albums"><i class="fa fa-folder" aria-hidden="true"></i> Albums</a></li>
-    <li><a data-toggle="tab" href="#photos"><i class="fa fa-picture-o" aria-hidden="true"></i> Photos</a></li>
-    <li><a data-toggle="tab" href="#ads"><i class="fa fa-address-card-o" aria-hidden="true"></i> Ads</a></li>
+    <li class="@(Model.Current == "users" ? "active" : "")">
+        <a data-toggle="tab" href="#users" onclick="saveCurrent('users')"><i class="fa fa-users" aria-hidden="true"></i> Users</a>
+    </li>
+    <li class="@(Model.Current == "albums" ? "active" : "")">
+        <a data-toggle="tab" href="#albums" onclick="saveCurrent('albums')"><i class="fa fa-folder" aria-hidden="true"></i> Albums</a>
+    </li>
+    <li class="@(Model.Current == "photos" ? "active" : "")">
+        <a data-toggle="tab" href="#photos" onclick="saveCurrent('photos')"><i class="fa fa-picture-o" aria-hidden="true"></i> Photos</a>
+    </li>
+    <li class="@(Model.Current == "ads" ? "active" : "")">
+        <a data-toggle="tab" href="#ads" onclick="saveCurrent('ads')"><i class="fa fa-address-card-o" aria-hidden="true"></i> Ads</a>
+    </li>
 </ul>
 
 @if (Model != null)
 {
     <div class="tab-content">
-        <div id="users" class="tab-pane fade in active">
+        <div id="users" class="tab-pane fade @(Model.Current == "users" || Model.Current == "" ? "in active" : "")">
             @if (Model.Users.Any())
             {
                 <h3>Found users</h3>
@@ -25,7 +32,7 @@
             }
         </div>
 
-        <div id="albums" class="tab-pane fade">
+        <div id="albums" class="tab-pane fade @(Model.Current == "albums" ? "in active" : "")">
             @if (Model.Albums.Any())
             {
                 <h3>Found albums</h3>
@@ -39,7 +46,7 @@
             }
         </div>
 
-        <div id="photos" class="tab-pane fade">
+        <div id="photos" class="tab-pane fade @(Model.Current == "photos" ? "in active" : "")">
             @if (Model.Photos.Any())
             {
                 <h3>Found photos</h3>
@@ -53,7 +60,7 @@
             }
         </div>
 
-        <div id="ads" class="tab-pane fade">
+        <div id="ads" class="tab-pane fade @(Model.Current == "ads" ? "in active" : "")">
             @if (Model.Ads.Any())
             {
                 <h3>Found ads</h3>
@@ -69,3 +76,9 @@
         </div>
     </div>
 }    
+
+<script>
+    saveCurrent = function(message) {
+        $('.currentCheck').val(message);
+    }
+</script>

@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Data.Models;
     using Snapbook.Services.Advertiser;
     using Snapbook.Web.Areas.Advertiser.Models.Ad;
@@ -46,9 +47,14 @@
         }
 
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> AddPhoto(int adId, AddPhotoToAdViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             var ad = await this.ads.FindForEdit(adId);

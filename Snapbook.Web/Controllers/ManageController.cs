@@ -12,6 +12,7 @@
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
     [Authorize]
     [Route("[controller]/[action]")]
@@ -63,6 +64,7 @@
         }
 
         [HttpPost]
+        [ValidateRecaptcha]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IndexViewModel model)
         {
@@ -159,6 +161,7 @@
         }
 
         [HttpPost]
+        [ValidateRecaptcha]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {

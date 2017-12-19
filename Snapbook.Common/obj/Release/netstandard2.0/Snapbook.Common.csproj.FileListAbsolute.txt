@@ -1,7 +1,6 @@
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Common\bin\Release\netstandard2.0\Snapbook.Common.deps.json
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Common\bin\Release\netstandard2.0\Snapbook.Common.dll
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Common\bin\Release\netstandard2.0\Snapbook.Common.pdb
-C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Common\obj\Release\netstandard2.0\Snapbook.Common.csprojResolveAssemblyReference.cache
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Common\obj\Release\netstandard2.0\Snapbook.Common.csproj.CoreCompileInputs.cache
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Common\obj\Release\netstandard2.0\Snapbook.Common.AssemblyInfoInputs.cache
 C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Common\obj\Release\netstandard2.0\Snapbook.Common.AssemblyInfo.cs

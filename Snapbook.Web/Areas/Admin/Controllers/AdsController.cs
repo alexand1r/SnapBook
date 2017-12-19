@@ -1,13 +1,11 @@
 ﻿namespace Snapbook.Web.Areas.Admin.Controllers
 {
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Identity;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
-    using Snapbook.Data.Models;
-    using Snapbook.Services.Admin;
-    using Snapbook.Web.Areas.Admin.Models.Ads;
-    using Snapbook.Web.Infrastructure.Extensions;
-    using Snapbook.Web.Infrastructure.Filters;
+    using Models.Ads;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
+    using Services.Admin;
+    using System.Threading.Tasks;
 
     public class AdsController : BaseController
     {
@@ -41,9 +39,14 @@
         }
 
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> Edit(int id, EditAdViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var success = await this.ads.Edit(
                 model.Name,
                 model.Description,

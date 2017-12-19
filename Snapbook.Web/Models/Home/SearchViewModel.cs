@@ -18,6 +18,8 @@
         [Display(Name = "ADS")]
         public bool SearchInAds { get; set; } = true;
         
+        public string Current { get; set; }
+
         public SearchResultsViewModel Results { get; set; }
     }
 }

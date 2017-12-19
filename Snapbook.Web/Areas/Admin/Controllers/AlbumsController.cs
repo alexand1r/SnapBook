@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Data.Models;
     using Snapbook.Services.Admin;
     using Snapbook.Web.Areas.Admin.Models.Albums;
@@ -48,6 +49,7 @@
         }
 
         [HttpPost]
+        [ValidateRecaptcha]
         public async Task<IActionResult> Edit(int id, EditAlbumViewModel model)
         {
             if (!this.ModelState.IsValid)

@@ -7,15 +7,10 @@
     using System;
     using System.Collections.Generic;
 
-    public class PhotoHomeServiceModel : IMapFrom<Photo>, IHaveCustomMapping
+    public class PhotoHomeServiceModel : SavedPhotoListingServiceModel, IHaveCustomMapping
     {
-        public int Id { get; set; }
 
         public string Description { get; set; }
-
-        public string ImageUrl { get; set; }
-
-        public DateTime PublishDate { get; set; }
 
         public string Location { get; set; }
 
@@ -23,27 +18,15 @@
 
         public string Longitude { get; set; }
 
-        public int Likes { get; set; }
-
-        public int Comments { get; set; }
-
-        public string AlbumAuthor { get; set; }
-
         public string AlbumAuthorUrl { get; set; }
-
-        public string AlbumAuthorId { get; set; }
 
         public string AlbumTitle { get; set; }
 
         public int? AlbumId { get; set; }
 
-        public string AdAuthor { get; set; }
-
         public string AdAuthorUrl { get; set; }
 
         public string AdUrl { get; set; }
-
-        public string AdAuthorId { get; set; }
 
         public string AdName { get; set; }
 
@@ -51,7 +34,7 @@
 
         public IEnumerable<TagListingServiceModel> Tags { get; set; }
 
-        public void ConfigureMapping(Profile mapper)
+        public new void ConfigureMapping(Profile mapper)
             => mapper
                 .CreateMap<Photo, PhotoHomeServiceModel>()
                 .ForMember(pd => pd.Likes, cfg => cfg.MapFrom(p => p.Likers.Count))

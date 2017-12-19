@@ -5,11 +5,11 @@
     using Data.Models;
     using System;
 
-    public class PhotoListingServiceModel : IMapFrom<Photo>, IHaveCustomMapping
+    public class PhotoListingServiceModel : PhotoRelatedServiceModel, IHaveCustomMapping
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
-        public string ImageUrl { get; set; }
+        //public string ImageUrl { get; set; }
 
         public DateTime PublishDate { get; set; }
 

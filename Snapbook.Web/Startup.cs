@@ -11,6 +11,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Services.Implementations;
 
     public class Startup
@@ -65,6 +66,12 @@
                 googleOptions.ClientId = this.Configuration["Authentication:Google:ClientId"];
                 googleOptions.ClientSecret = this.Configuration["Authentication:Google:ClientSecret"];
             });
+
+            services.AddRecaptcha(new RecaptchaOptions
+            {
+                SiteKey = this.Configuration["Recaptcha:SiteKey"],
+                SecretKey = this.Configuration["Recaptcha:SecretKey"]
+            });
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -84,7 +91,7 @@
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();    
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

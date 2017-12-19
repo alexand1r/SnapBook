@@ -9,6 +9,7 @@
     using Services.User;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore.Internal;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Areas.User.Models.Photos;
     using Snapbook.Web.Infrastructure.Extensions;
 
@@ -47,9 +48,14 @@
         }
 
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> AddPhoto(int albumId, AddPhotoToAlbumViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var album = await this.albums.Find(albumId);
 
             var user = await this.userManager.GetUserAsync(this.User);

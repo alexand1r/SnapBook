@@ -7,6 +7,7 @@
     using Models.Ad;
     using Services.Advertiser;
     using System.Threading.Tasks;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Web.Infrastructure.Extensions;
 
     public class AdController : BaseController
@@ -37,9 +38,14 @@
         }
         
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> CreateAd(CreateAdViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             var ad = await this.ads.Find(user.Id);
@@ -90,9 +96,14 @@
         }
 
         [HttpPost]
-        [ValidateModelState]
+        [ValidateRecaptcha]
         public async Task<IActionResult> Edit(int id, EditAdViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
             var ad = await this.ads.FindForEdit(id);
             

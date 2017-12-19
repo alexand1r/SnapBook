@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapbook.Data", "Snapbook.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapbook.Web", "Snapbook.Web\Snapbook.Web.csproj", "{B6D50248-0C91-4804-8914-08E4250CB5B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapbook.Services", "Snapbook.Services\Snapbook.Services.csproj", "{3530A239-98C4-43BB-AD09-F4A70C8CCCB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapbook.Services", "Snapbook.Services\Snapbook.Services.csproj", "{3530A239-98C4-43BB-AD09-F4A70C8CCCB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapbook.Common", "Snapbook.Common\Snapbook.Common.csproj", "{8DF2E08D-8C4B-4F2C-BC80-FF9A23BEC778}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snapbook.Common", "Snapbook.Common\Snapbook.Common.csproj", "{8DF2E08D-8C4B-4F2C-BC80-FF9A23BEC778}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapbook.Tests", "Snapbook.Tests\Snapbook.Tests.csproj", "{872869EE-7A88-48B1-81D8-C7B1D27FBE2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8DF2E08D-8C4B-4F2C-BC80-FF9A23BEC778}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DF2E08D-8C4B-4F2C-BC80-FF9A23BEC778}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DF2E08D-8C4B-4F2C-BC80-FF9A23BEC778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{872869EE-7A88-48B1-81D8-C7B1D27FBE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{872869EE-7A88-48B1-81D8-C7B1D27FBE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{872869EE-7A88-48B1-81D8-C7B1D27FBE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{872869EE-7A88-48B1-81D8-C7B1D27FBE2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,17 +9,13 @@
     using AutoMapper;
     using Snapbook.Services.Models.Photo;
 
-    public class UserProfileServiceModel : IMapFrom<User>, IHaveCustomMapping
+    public class UserProfileServiceModel : UserListingServiceModel, IHaveCustomMapping
     {
-        public string Username { get; set; }
-
         public string Name { get; set; }
 
         public string Bio { get; set; }
 
         public DateTime BirthDate { get; set; }
-
-        public string ProfilePicUrl { get; set; }
 
         public IEnumerable<UserProfileAlbumServiceModel> Albums { get; set; }
 

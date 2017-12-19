@@ -106,7 +106,7 @@ footer {
 
 .panel {
     transition: 0.2s ease-in-out;
-    box-shadow: 2px 2px 2px #ddd;
+    box-shadow: 3px 3px 5px rgba(2, 2, 2, 0.7);
 }
 
 .panel:hover {
@@ -158,6 +158,7 @@ footer {
     border: 1px solid #ccc;
     border-radius: 0 0 10px 10px;
     background: white;
+    box-shadow: 5px 5px 5px #aaa;
 }
 
 .home-photo-image:hover {
@@ -352,6 +353,7 @@ footer {
     border: 1px solid #ccc;
     height: 20vw;
     transition: 0.2s ease-in-out;
+    box-shadow: 3px 3px 5px rgba(2, 2, 2, 0.7);
 }
 
 .album-info {
