@@ -20,7 +20,6 @@
 
         public AlbumServiceTest()
         {
-            Tests.Initialize();
             this.db = Tests.GetDatabase();
             this.PopulateDb();
         }
@@ -29,6 +28,7 @@
         public async Task FindShouldReturnNoResultOnNullSearchText()
         {
             // Arrange
+            Tests.Initialize();
             var albumService = new AlbumService(this.db);
 
             // Act
@@ -44,6 +44,7 @@
         public async Task FindShouldReturnCorrectResultsWithFilterAndOrder()
         {
             // Arrange
+            Tests.Initialize();
             var albumService = new AlbumService(this.db);
 
             // Act
@@ -66,6 +67,7 @@
         public async Task DetailsShouldReturnCorrectResults()
         {
             // Arrange
+            Tests.Initialize();
             var albumService = new AlbumService(this.db);
 
             // Act

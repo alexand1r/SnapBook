@@ -22,7 +22,7 @@
         public async Task DeleteShouldReturnFalseWithInvalidId()
         {
             // Arrange
-            Tests.Initialize();
+            //Tests.Initialize();
             var adminCategoryService = new AdminCategoryService(this.db);
 
             // Act
