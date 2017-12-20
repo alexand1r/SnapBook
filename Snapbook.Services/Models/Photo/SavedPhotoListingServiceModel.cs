@@ -6,10 +6,6 @@
 
     public class SavedPhotoListingServiceModel : PhotoListingServiceModel, IHaveCustomMapping
     {
-        //public int Id { get; set; }
-
-        //public string ImageUrl { get; set; }
-
         public string AlbumAuthor { get; set; }
 
         public string AlbumAuthorId { get; set; }
@@ -17,11 +13,7 @@
         public string AdAuthor { get; set; }
 
         public string AdAuthorId { get; set; }
-
-        //public int Likes { get; set; }
-
-        //public int Comments { get; set; }
-
+        
         public new void ConfigureMapping(Profile mapper)
             => mapper
                 .CreateMap<Photo, SavedPhotoListingServiceModel>()

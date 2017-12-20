@@ -1,14 +1,14 @@
 ﻿namespace Snapbook.Services.Admin.Implementations
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    using AutoMapper.QueryableExtensions;
+    using Admin.Models.Category;
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-    using AutoMapper.QueryableExtensions;
-    using Snapbook.Services.Admin.Models.Category;
-
+    
     public class AdminCategoryService : IAdminCategoryService
     {
         private readonly SnapbookDbContext db;

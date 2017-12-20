@@ -6,11 +6,11 @@
     using Microsoft.EntityFrameworkCore;
     using Models.Comment;
     using Models.Photo;
+    using Services.Models.User;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Identity;
 
     public class PhotoService : IPhotoService
     {
@@ -161,7 +161,7 @@
                 .AnyAsync(uli => uli.UserId == userId 
                     && uli.PhotoId == photoId);
 
-        public async Task<int> Like(string userId, int photoId)
+        public async Task<IEnumerable<PhotoLikerServiceModel>> Like(string userId, int photoId)
         {
             var photoInfo = await this.db
                 .Photos
@@ -174,7 +174,12 @@
 
             if (photoInfo == null || photoInfo.UserIdHasLiked)
             {
-                return this.db.UsersLikedImages.Count();
+                return await this.db
+                    .Users
+                    .Where(uli => uli.LikedPhotos.Any(lp => lp.PhotoId == photoId))
+                    .OrderBy(u => u.UserName)
+                    .ProjectTo<PhotoLikerServiceModel>()
+                    .ToListAsync();
             }
 
             var userLike = new UsersLikedImages
@@ -186,10 +191,15 @@
             this.db.Add(userLike);
             await this.db.SaveChangesAsync();
 
-            return this.db.UsersLikedImages.Count(uli => uli.PhotoId == photoId);
+            return await this.db
+                .Users
+                .Where(uli => uli.LikedPhotos.Any(lp => lp.PhotoId == photoId))
+                .OrderBy(u => u.UserName)
+                .ProjectTo<PhotoLikerServiceModel>()
+                .ToListAsync();
         }
 
-        public async Task<int> Unlike(string userId, int photoId)
+        public async Task<IEnumerable<PhotoLikerServiceModel>> Unlike(string userId, int photoId)
         {
             var photoInfo = await this.db
                 .Photos
@@ -202,7 +212,12 @@
 
             if (photoInfo == null || !photoInfo.UserIdHasLiked)
             {
-                return this.db.UsersLikedImages.Count();
+                return await this.db
+                    .Users
+                    .Where(uli => uli.LikedPhotos.Any(lp => lp.PhotoId == photoId))
+                    .OrderBy(u => u.UserName)
+                    .ProjectTo<PhotoLikerServiceModel>()
+                    .ToListAsync();
             }
 
             var userUnlike = await this.db
@@ -212,8 +227,13 @@
 
             this.db.UsersLikedImages.Remove(userUnlike);
             await this.db.SaveChangesAsync();
-
-            return this.db.UsersLikedImages.Count(uli => uli.PhotoId == photoId);
+            
+            return await this.db
+                .Users
+                .Where(uli => uli.LikedPhotos.Any(lp => lp.PhotoId == photoId))
+                .OrderBy(u => u.UserName)
+                .ProjectTo<PhotoLikerServiceModel>()
+                .ToListAsync();
         }
 
         public async Task<bool> CanSave(string userId, int photoId)

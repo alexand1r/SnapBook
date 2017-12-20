@@ -49,7 +49,7 @@
             services.AddDomainServices();
 
             services.AddRouting(routing => routing.LowercaseUrls = true);
-
+            
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();

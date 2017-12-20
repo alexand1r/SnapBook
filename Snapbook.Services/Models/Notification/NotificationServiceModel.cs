@@ -1,8 +1,8 @@
 ﻿namespace Snapbook.Services.Models.Notification
 {
-    using System;
     using Common.Mapping;
     using Data.Models;
+    using System;
 
     public class NotificationServiceModel : IMapFrom<Notification>
     {

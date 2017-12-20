@@ -1,10 +1,10 @@
 ﻿namespace Snapbook.Services.Advertiser.Models
 {
+    using AutoMapper;
     using Common.Mapping;
     using Data.Models;
+    using Services.Models.Photo;
     using System.Collections.Generic;
-    using AutoMapper;
-    using Snapbook.Services.Models.Photo;
 
     public class AdDetailsServiceModel : AdEditServiceModel, IHaveCustomMapping
     {

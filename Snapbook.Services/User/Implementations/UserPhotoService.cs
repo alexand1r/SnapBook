@@ -1,9 +1,8 @@
 ﻿namespace Snapbook.Services.User.Implementations
 {
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
     using Data;
     using Data.Models;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Linq;
     using System.Threading.Tasks;

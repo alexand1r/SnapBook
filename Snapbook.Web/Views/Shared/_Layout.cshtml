@@ -9,6 +9,9 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link href="@Url.Content("~/css/site.css")" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="~/lib/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+
     </environment>
     <environment exclude="Development,Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -31,13 +34,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Search">Search</a></li>
                     @if (User.IsInRole(WebConstants.AdministratorRole))
                     {
                         <li class="dropdown">
-                            <a class="btn dropdown-toggle" style="display: inline-block !important;" data-toggle="dropdown">Admin Panel
-                                <span class="caret" style="padding-bottom: 5px;"></span></a>
+                            <a class="btn dropdown-toggle" style="display: inline-block !important;" data-toggle="dropdown">
+                                <i class="fa fa-user-o" aria-hidden="true"></i> Admin Panel
+                                <span class="caret" style="padding-bottom: 5px;"></span>
+                            </a>
                             <ul class="dropdown-menu">
                                 <li><a asp-area="Admin" asp-controller="Users" asp-action="AddToRole">Manage User Roles</a></li>
                                 <li><a asp-area="Admin" asp-controller="Categories" asp-action="All">Manage Album Categories</a></li>
@@ -49,17 +52,23 @@
                     }
                     @if (User.IsInRole(WebConstants.UserRole))
                     {
-                        <li><a asp-area="User" asp-controller="Albums" asp-action="CreateAlbum">Create New Album</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "createalbum" ? "current" : "")">
+                            <a asp-area="User" asp-controller="Albums" asp-action="CreateAlbum">Create New Album</a>
+                        </li>
                     }
                     @if (User.IsInRole(WebConstants.AdvertiserRole))
                     {
-                        <li><a asp-area="" asp-controller="Users" asp-action="Ad" asp-route-id="0">Ad</a></li>
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ad" ? "current" : "")">
+                            <a asp-area="" asp-controller="Users" asp-action="Ad" asp-route-id="0"><i class="fa fa-address-card-o" aria-hidden="true"></i> Ad</a>
+                        </li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-controller="Users" asp-action="Profile" asp-route-username="@User.Identity.Name">Profile</a></li>
                         @Html.Partial("_NotificationsLink", User.Identity.Name)
                     }
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "search" ? "current" : "")">
+                        <a asp-area="" asp-controller="Home" asp-action="Search"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
+                    </li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -86,10 +95,11 @@
     <p><small>&copy; 2017 - Snapbook</small></p>
 </footer>
 <environment include="Development,Staging,Production">
-    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js"></script>
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib/signalr/signalr-client-1.0.0-alpha2-final.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 </environment>
     <environment exclude="Development,Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

@@ -3,11 +3,10 @@
     using AutoMapper.QueryableExtensions;
     using Data;
     using Microsoft.EntityFrameworkCore;
+    using Services.Models.Notification;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Snapbook.Data.Models;
-    using Snapbook.Services.Models.Notification;
 
     public class NotificationService : INotificationService
     {

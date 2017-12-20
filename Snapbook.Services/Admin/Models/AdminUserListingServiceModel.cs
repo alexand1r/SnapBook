@@ -1,8 +1,8 @@
 ﻿namespace Snapbook.Services.Admin.Models
 {
-    using System.Collections.Generic;
     using Common.Mapping;
     using Data.Models;
+    using System.Collections.Generic;
 
     public class AdminUserListingServiceModel : IMapFrom<User>
     {

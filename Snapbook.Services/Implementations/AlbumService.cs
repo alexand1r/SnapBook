@@ -1,10 +1,10 @@
 ﻿namespace Snapbook.Services.Implementations
 {
-    using System.Collections.Generic;
     using AutoMapper.QueryableExtensions;
     using Data;
     using Microsoft.EntityFrameworkCore;
     using Models.Album;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 

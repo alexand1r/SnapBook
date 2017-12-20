@@ -3,11 +3,10 @@
     using Advertiser.Models;
     using AutoMapper.QueryableExtensions;
     using Data;
+    using Data.Models;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore.Query.Internal;
-    using Snapbook.Data.Models;
 
     public class AdvertiserAdService : IAdvertiserAdService
     {

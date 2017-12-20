@@ -1,8 +1,5 @@
 ﻿namespace Snapbook.Tests.Web.Areas.Admin.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using FluentAssertions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -13,6 +10,9 @@
     using Snapbook.Web;
     using Snapbook.Web.Areas.Admin.Controllers;
     using Snapbook.Web.Areas.Admin.Models.Ads;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Xunit;
 
     public class AdsControllerTest

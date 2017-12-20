@@ -1,17 +1,13 @@
 ﻿namespace Snapbook.Web.Areas.User.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Data.Models;
-    using Infrastructure.Filters;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Models.Photos;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Services.User;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore.Internal;
-    using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Web.Areas.User.Models.Photos;
-    using Snapbook.Web.Infrastructure.Extensions;
 
     public class PhotosController : BaseController
     {
@@ -36,7 +32,7 @@
 
             if (album == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             if (user.Id != album.UserId)

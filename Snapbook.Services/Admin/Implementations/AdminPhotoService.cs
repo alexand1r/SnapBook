@@ -1,14 +1,12 @@
 ﻿namespace Snapbook.Services.Admin.Implementations
 {
+    using Admin.Models.Photo;
+    using AutoMapper.QueryableExtensions;
+    using Data;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.InteropServices.ComTypes;
     using System.Threading.Tasks;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Snapbook.Data;
-    using Snapbook.Services.Admin.Models.Photo;
 
     public class AdminPhotoService : IAdminPhotoService
     {

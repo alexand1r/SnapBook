@@ -4,13 +4,11 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Models;
+    using Models.Home;
     using Models.Photos;
     using Services;
     using System.Diagnostics;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.AspNetCore.Http;
-    using Snapbook.Web.Models.Home;
 
     public class HomeController : Controller
     {
@@ -88,6 +86,8 @@
 
             return this.PartialView("_SearchResults", results);
         }
+
+        public IActionResult NotFoundPage() => this.View();
 
         public IActionResult Error()
         {

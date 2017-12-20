@@ -1,16 +1,15 @@
 ﻿namespace Snapbook.Tests.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Threading.Tasks;
     using FluentAssertions;
     using Snapbook.Data;
     using Snapbook.Data.Models;
     using Snapbook.Services.Implementations;
     using Snapbook.Services.Models.Comment;
     using Snapbook.Services.Models.Photo;
+    using Snapbook.Services.Models.User;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Xunit;
 
     public class PhotoServiceTest
@@ -90,7 +89,8 @@
             var result = await photoService.Like("1", 1);
 
             // Assert
-            result.Should().Be(1);
+            result.Should().BeOfType<List<PhotoLikerServiceModel>>();
+            result.Should().HaveCount(1);
         }
 
         [Fact]
@@ -103,7 +103,8 @@
             var result = await photoService.Like("2", 10);
 
             // Assert
-            result.Should().Be(1);
+            result.Should().BeOfType<List<PhotoLikerServiceModel>>();
+            result.Should().HaveCount(0);
         }
 
         [Fact]
@@ -116,7 +117,8 @@
             var result = await photoService.Like("2", 1);
 
             // Assert
-            result.Should().Be(2);
+            result.Should().BeOfType<List<PhotoLikerServiceModel>>();
+            result.Should().HaveCount(2);
         }
 
         private async void PopulateDb()

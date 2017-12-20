@@ -3,8 +3,8 @@
     using AutoMapper;
     using Data;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using Snapbook.Web.Infrastructure.Mapping;
+    using System;
 
     public class Tests
     {

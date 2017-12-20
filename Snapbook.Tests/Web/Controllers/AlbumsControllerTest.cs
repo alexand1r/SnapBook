@@ -1,12 +1,12 @@
 ﻿namespace Snapbook.Tests.Web.Controllers
 {
+    using FluentAssertions;
     using Microsoft.AspNetCore.Mvc;
     using Moq;
     using Snapbook.Services;
+    using Snapbook.Services.Models.Album;
     using Snapbook.Web.Controllers;
     using System.Threading.Tasks;
-    using FluentAssertions;
-    using Snapbook.Services.Models.Album;
     using Xunit;
 
     public class AlbumsControllerTest

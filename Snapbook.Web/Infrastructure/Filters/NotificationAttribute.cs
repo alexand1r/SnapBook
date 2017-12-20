@@ -1,11 +1,11 @@
 ﻿namespace Snapbook.Web.Infrastructure.Filters
 {
+    using Data;
+    using Data.Models;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Linq;
-    using Microsoft.AspNetCore.Mvc.Filters;
-    using Snapbook.Data;
-    using Microsoft.Extensions.DependencyInjection;
-    using Snapbook.Data.Models;
 
     public class NotificationAttribute : ActionFilterAttribute
     {

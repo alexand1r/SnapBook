@@ -1,6 +1,5 @@
 ﻿namespace Snapbook.Services.Models.Album
 {
-    using System;
     using AutoMapper;
     using Common.Mapping;
     using Data.Models;

@@ -1,12 +1,12 @@
 ﻿namespace Snapbook.Services.Admin.Implementations
 {
+    using Admin.Models.Ad;
+    using AutoMapper.QueryableExtensions;
+    using Data;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-    using Snapbook.Data;
-    using Snapbook.Services.Admin.Models.Ad;
 
     public class AdminAdService : IAdminAdService
     {

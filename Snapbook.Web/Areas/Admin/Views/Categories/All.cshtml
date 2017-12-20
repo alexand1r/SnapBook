@@ -48,11 +48,11 @@
         <script>
         var ajaxDeleteSuccess_@category.Id = function(message) {
             $('#category_' + '@category.Id').remove();
-            var messageDiv = $('<div class="alert alert-success text-center">' + message + '</div>');
+            var messageDiv = '<div class="alert alert-success text-center">' + message + '</div>';
             $('.body-content').prepend(messageDiv);
         }
-        var ajaxDeleteError_@category.Id = function() {
-            var messageDiv = $('<div class="alert alert-error text-center">Error: Deletion failed.</div>');
+        var ajaxDeleteError_@category.Id = function(message) {
+            var messageDiv = '<div class="alert alert-error text-center">' + message + '</div>';
             $('.body-content').prepend(messageDiv);
         }
         </script>

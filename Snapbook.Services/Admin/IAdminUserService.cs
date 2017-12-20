@@ -1,6 +1,6 @@
 ﻿namespace Snapbook.Services.Admin
 {
-    using Admin.Models;
+    using Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 

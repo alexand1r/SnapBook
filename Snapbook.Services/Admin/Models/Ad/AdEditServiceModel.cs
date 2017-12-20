@@ -1,7 +1,7 @@
 ﻿namespace Snapbook.Services.Admin.Models.Ad
 {
-    using Snapbook.Common.Mapping;
-    using Snapbook.Data.Models;
+    using Common.Mapping;
+    using Data.Models;
 
     public class AdEditServiceModel : IMapFrom<Ad>
     {

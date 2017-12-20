@@ -9,10 +9,10 @@
     public class User : IdentityUser
     {
         [Required]
-        [StringLength(UserNameMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = UserNameMinLength)]
+        [StringLength(UserNameMaxLength, ErrorMessage = StringLengthBetweenErrorMessage, MinimumLength = UserNameMinLength)]
         public string Name { get; set; }
 
-        [StringLength(UserBioMaxLength, ErrorMessage = "The {0} must be no more than {1} characters long.")]
+        [StringLength(UserBioMaxLength, ErrorMessage = StringLengthMaxLengthErrorMessage)]
         public string Bio { get; set; }
 
         public string ProfilePicUrl { get; set; }

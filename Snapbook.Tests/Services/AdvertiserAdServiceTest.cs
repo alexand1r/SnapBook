@@ -1,13 +1,11 @@
 ﻿namespace Snapbook.Tests.Services
 {
-    using System.Linq;
-    using System.Threading.Tasks;
     using FluentAssertions;
     using Snapbook.Data;
     using Snapbook.Data.Models;
     using Snapbook.Services.Advertiser.Implementations;
-    using Snapbook.Services.Implementations;
-    using Snapbook.Services.Models.Photo;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Xunit;
 
     public class AdvertiserAdServiceTest

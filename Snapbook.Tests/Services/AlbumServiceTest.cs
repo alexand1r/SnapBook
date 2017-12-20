@@ -3,15 +3,11 @@
     using Data;
     using Data.Models;
     using FluentAssertions;
-    using Microsoft.EntityFrameworkCore;
     using Snapbook.Services.Implementations;
-    using System;
+    using Snapbook.Services.Models.Album;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Moq;
-    using Snapbook.Services;
-    using Snapbook.Services.Models.Album;
     using Xunit;
 
     public class AlbumServiceTest

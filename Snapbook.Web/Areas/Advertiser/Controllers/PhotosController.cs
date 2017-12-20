@@ -1,15 +1,13 @@
 ﻿namespace Snapbook.Web.Areas.Advertiser.Controllers
 {
-    using System.Threading.Tasks;
+    using Data.Models;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Models.Photos;
     using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Data.Models;
-    using Snapbook.Services.Advertiser;
-    using Snapbook.Web.Areas.Advertiser.Models.Ad;
-    using Snapbook.Web.Areas.Advertiser.Models.Photos;
-    using Snapbook.Web.Infrastructure.Extensions;
-    using Snapbook.Web.Infrastructure.Filters;
+    using Services.Advertiser;
+    using System.Threading.Tasks;
 
     public class PhotosController : BaseController
     {
@@ -35,7 +33,7 @@
 
             if (ad == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             if (user.Id != ad.UserId)

@@ -13,7 +13,13 @@ body {
     background: #eee !important;
 }
 
-a, a:hover, a:visited, a:focus {
+.badge {
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+}
+
+div, li, li:hover, li:focus, button, button:hover, 
+button:focus, a, a:hover, a:visited, a:focus {
     text-decoration: none;
     outline: none;
 }
@@ -60,6 +66,10 @@ footer {
 /* QR code generator */
 #qrCode {
     margin: 15px;
+}
+
+.current, .current > a {
+    color: white !important;
 }
 
 .admin-photo {
@@ -358,6 +368,11 @@ footer {
 
 .album-info {
     padding-bottom: 20px;
+}
+
+.home-photo-desc span {
+    color: cornflowerblue;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

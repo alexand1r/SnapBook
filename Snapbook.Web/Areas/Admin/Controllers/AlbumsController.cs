@@ -1,16 +1,14 @@
 ﻿namespace Snapbook.Web.Areas.Admin.Controllers
 {
+    using Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Albums;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
+    using Services.Admin;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Data.Models;
-    using Snapbook.Services.Admin;
-    using Snapbook.Web.Areas.Admin.Models.Albums;
-    using Snapbook.Web.Infrastructure.Extensions;
 
     public class AlbumsController : BaseController
     {
@@ -34,7 +32,7 @@
 
             if (album == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             var categoriess = await this.GetCategories();

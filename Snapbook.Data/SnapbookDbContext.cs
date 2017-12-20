@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using Snapbook.Data.Models;
+    using Models;
 
     public class SnapbookDbContext : IdentityDbContext<User>
     {

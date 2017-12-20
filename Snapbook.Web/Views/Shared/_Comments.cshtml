@@ -16,7 +16,7 @@
                 }
             </div>
             <div class="col-xs-12" style="padding: 0;">
-                <small><em>@comment.PublishDate.ToString("MMMM dd, yyyy")</em></small>
+                <small><em>@comment.PublishDate.ToString().CalculateDateDifference()</em></small>
             </div>
         </div>
     }

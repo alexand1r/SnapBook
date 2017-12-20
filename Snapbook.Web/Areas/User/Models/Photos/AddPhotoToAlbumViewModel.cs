@@ -6,7 +6,7 @@
     public class AddPhotoToAlbumViewModel
     {
         [Required]
-        [StringLength(PhotoDescriptionMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = PhotoDescriptionMinLength)]
+        [StringLength(PhotoDescriptionMaxLength, ErrorMessage = StringLengthBetweenErrorMessage, MinimumLength = PhotoDescriptionMinLength)]
         public string Description { get; set; }
 
         public string Location { get; set; }

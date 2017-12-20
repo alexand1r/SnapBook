@@ -1,9 +1,9 @@
 ﻿namespace Snapbook.Services.Models.Album
 {
-    using System;
     using AutoMapper;
     using Common.Mapping;
     using Data.Models;
+    using System;
 
     public class UserProfileAlbumServiceModel : IMapFrom<Album>, IHaveCustomMapping
     {

@@ -1,8 +1,8 @@
 ﻿namespace Snapbook.Services.Admin
 {
+    using Models.Ad;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Snapbook.Services.Admin.Models.Ad;
 
     public interface IAdminAdService
     {

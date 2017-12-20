@@ -1,9 +1,9 @@
 ﻿namespace Snapbook.Web.Infrastructure.Mapping
 {
+    using AutoMapper;
+    using Common.Mapping;
     using System;
     using System.Linq;
-    using AutoMapper;
-    using Snapbook.Common.Mapping;
 
     public class AutoMapperProfile : Profile
     {

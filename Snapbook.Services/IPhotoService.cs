@@ -2,6 +2,7 @@
 {
     using Models.Comment;
     using Models.Photo;
+    using Models.User;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -32,9 +33,9 @@
 
         Task<bool> CanLike(string userId, int photoId);
 
-        Task<int> Like(string userId, int photoId);
+        Task<IEnumerable<PhotoLikerServiceModel>> Like(string userId, int photoId);
 
-        Task<int> Unlike(string userId, int photoId);
+        Task<IEnumerable<PhotoLikerServiceModel>> Unlike(string userId, int photoId);
 
         Task<bool> CanSave(string userId, int photoId);
 

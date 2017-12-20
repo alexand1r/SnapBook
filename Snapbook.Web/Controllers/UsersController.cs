@@ -1,15 +1,14 @@
 ﻿namespace Snapbook.Web.Controllers
 {
     using Data.Models;
-    using Infrastructure.Filters;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Models.Users;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Snapbook.Services;
     using System.Threading.Tasks;
-    using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Web.Infrastructure.Extensions;
 
     [Authorize]
     public class UsersController : Controller
@@ -37,7 +36,7 @@
 
             if (user == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             var profile = await this.users.ProfileAsync(user.Id);
@@ -51,7 +50,7 @@
 
             if (user == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             return this.View(new EditProfilePicViewModel
@@ -87,7 +86,7 @@
 
             if (user == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             var allNotifications = await this.notifications.All(user.Id);
@@ -105,7 +104,7 @@
 
                 if (adById == null)
                 {
-                    return this.NotFound();
+                    return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
                 }
 
                 return this.View(new AdDetailsViewModel

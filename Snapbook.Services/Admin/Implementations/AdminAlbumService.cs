@@ -3,8 +3,8 @@
     using Admin.Models.Album;
     using AutoMapper.QueryableExtensions;
     using Data;
-    using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 

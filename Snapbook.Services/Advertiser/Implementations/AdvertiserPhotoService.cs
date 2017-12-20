@@ -1,12 +1,11 @@
 ﻿namespace Snapbook.Services.Advertiser.Implementations
 {
-    using System;
-    using AutoMapper.QueryableExtensions;
     using Data;
+    using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Snapbook.Data.Models;
 
     public class AdvertiserPhotoService : IAdvertiserPhotoService
     {

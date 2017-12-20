@@ -5,10 +5,10 @@
     var count = NotificationService.FindUnRead(Model);
 }
 
-<li>
+<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Notifications" ? "current" : "")">
     <a asp-controller="Users"
        asp-action="Notifications"
        asp-route-username="@Model"
-       >Notifications @if(count > 0) {<span class="badge">@count</span>}
+       ><i class="fa fa-bell-o" aria-hidden="true"></i> Notifications @if(count > 0) {<span class="badge">@count</span>}
     </a>
 </li>

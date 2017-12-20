@@ -1,17 +1,17 @@
 ﻿namespace Snapbook.Web.Controllers
 {
     using Data.Models;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Models.AccountViewModels;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Web.Infrastructure.Extensions;
 
     [Authorize]
     [Route("[controller]/[action]")]

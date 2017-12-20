@@ -1,12 +1,11 @@
 ﻿namespace Snapbook.Web.Areas.Admin.Controllers
 {
-    using Infrastructure.Filters;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Models.Categories;
     using Services.Admin;
-    using System.Threading.Tasks;
     using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Web.Infrastructure.Extensions;
+    using System.Threading.Tasks;
 
     public class CategoriesController : BaseController
     {
@@ -45,7 +44,7 @@
 
             if (category == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             return this.View(new EditCategoryViewModel

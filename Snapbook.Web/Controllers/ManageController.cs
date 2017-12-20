@@ -7,12 +7,12 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Models.ManageViewModels;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using System;
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-    using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
     [Authorize]
     [Route("[controller]/[action]")]

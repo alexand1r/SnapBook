@@ -19,7 +19,7 @@
 
             if (album == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             return this.View(album);

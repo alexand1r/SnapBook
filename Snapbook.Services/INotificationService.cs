@@ -1,8 +1,8 @@
 ﻿namespace Snapbook.Services
 {
+    using Models.Notification;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Snapbook.Services.Models.Notification;
 
     public interface INotificationService
     {

@@ -1,11 +1,11 @@
 ﻿namespace Snapbook.Tests.Services
 {
-    using System.Linq;
-    using System.Threading.Tasks;
     using FluentAssertions;
     using Snapbook.Data;
     using Snapbook.Data.Models;
     using Snapbook.Services.Admin.Implementations;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Xunit;
 
     public class AdminCategoryServiceTest

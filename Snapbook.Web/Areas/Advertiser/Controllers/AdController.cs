@@ -1,14 +1,13 @@
 ﻿namespace Snapbook.Web.Areas.Advertiser.Controllers
 {
     using Data.Models;
-    using Infrastructure.Filters;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Identity;
     using Models.Ad;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Services.Advertiser;
     using System.Threading.Tasks;
-    using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Web.Infrastructure.Extensions;
 
     public class AdController : BaseController
     {
@@ -78,7 +77,7 @@
 
             if (ad == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             if (user.Id != ad.UserId)

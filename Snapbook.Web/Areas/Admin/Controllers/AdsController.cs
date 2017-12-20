@@ -26,7 +26,7 @@
 
             if (ad == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             return this.View(new EditAdViewModel

@@ -1,8 +1,8 @@
 ﻿namespace Snapbook.Services.Admin
 {
+    using Models.Category;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Snapbook.Services.Admin.Models.Category;
 
     public interface IAdminCategoryService
     {

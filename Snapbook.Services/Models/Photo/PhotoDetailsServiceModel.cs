@@ -5,8 +5,10 @@
     using Data.Models;
     using Models.Comment;
     using Models.Tag;
+    using Models.User;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class PhotoDetailsServiceModel : IMapFrom<Photo>, IHaveCustomMapping
     {
@@ -24,7 +26,7 @@
 
         public string Longitude { get; set; }
 
-        public int Likes { get; set; }
+        public IEnumerable<PhotoLikerServiceModel> Likes { get; set; }
 
         public string AlbumAuthor { get; set; }
 
@@ -53,7 +55,7 @@
         public void ConfigureMapping(Profile mapper)
             => mapper
                 .CreateMap<Photo, PhotoDetailsServiceModel>()
-                .ForMember(pd => pd.Likes, cfg => cfg.MapFrom(p => p.Likers.Count))
+                .ForMember(pd => pd.Likes, cfg => cfg.MapFrom(p => p.Likers.Select(l => l.User)))
                 .ForMember(pd => pd.AlbumAuthor, cfg => cfg.MapFrom(p => p.Album.User.UserName))
                 .ForMember(pd => pd.AlbumAuthorId, cfg => cfg.MapFrom(p => p.Album.User.Id))
                 .ForMember(pd => pd.AlbumTitle, cfg => cfg.MapFrom(p => p.Album.Title))

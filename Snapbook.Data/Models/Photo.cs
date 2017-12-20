@@ -10,7 +10,7 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(PhotoDescriptionMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = PhotoDescriptionMinLength)]
+        [StringLength(PhotoDescriptionMaxLength, ErrorMessage = StringLengthBetweenErrorMessage, MinimumLength = PhotoDescriptionMinLength)]
         public string Description { get; set; }
 
         public DateTime PublishDate { get; set; }

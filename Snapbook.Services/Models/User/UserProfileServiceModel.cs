@@ -1,13 +1,13 @@
 ﻿namespace Snapbook.Services.Models.User
 {
+    using AutoMapper;
     using Common.Mapping;
     using Data.Models;
     using Models.Album;
+    using Models.Photo;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using AutoMapper;
-    using Snapbook.Services.Models.Photo;
 
     public class UserProfileServiceModel : UserListingServiceModel, IHaveCustomMapping
     {

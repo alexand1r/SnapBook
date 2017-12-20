@@ -1,21 +1,16 @@
 ﻿namespace Snapbook.Web.Controllers
 {
-    using System;
-    using System.IO;
     using Data.Models;
+    using Infrastructure.Extensions;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Models.Photos;
+    using PaulMiami.AspNetCore.Mvc.Recaptcha;
     using Services;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Net.Mime;
     using System.Threading.Tasks;
-    using PaulMiami.AspNetCore.Mvc.Recaptcha;
-    using Snapbook.Web.Infrastructure.Extensions;
 
     public class PhotosController : Controller
     {
@@ -39,7 +34,7 @@
 
             if (photo == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             if (user.Id != photo.AdUserId 
@@ -109,7 +104,7 @@
 
             if (photo == null)
             {
-                return this.NotFound();
+                return this.RedirectToAction("NotFoundPage", "Home", new {Area=""});
             }
 
             var user = await this.userManager.GetUserAsync(this.User);

@@ -6,7 +6,7 @@
     public class EditAdViewModel
     {
         [Required]
-        [StringLength(AdNameMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = AdNameMinLength)]
+        [StringLength(AdNameMaxLength, ErrorMessage = StringLengthBetweenErrorMessage, MinimumLength = AdNameMinLength)]
         public string Name { get; set; }
 
         [Required]
@@ -14,11 +14,11 @@
         public string AdProfilePicUrl { get; set; }
 
         [Required]
-        [StringLength(AdDescriptionMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = AdDescriptionMinLength)]
+        [StringLength(AdDescriptionMaxLength, ErrorMessage = StringLengthBetweenErrorMessage, MinimumLength = AdDescriptionMinLength)]
         public string Description { get; set; }
 
         [Required]
-        [RegularExpression("www\\.[\\S]+\\.[\\S]+", ErrorMessage = "Website field should be in format 'www.example.com'")]
+        [RegularExpression(AdWebsiteRegex, ErrorMessage = WebsiteFormatErrorMessage)]
         public string Website { get; set; }
     }
 }

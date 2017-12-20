@@ -1,8 +1,8 @@
 ﻿namespace Snapbook.Web.Areas.Admin.Controllers
 {
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Snapbook.Services.Admin;
+    using Services.Admin;
+    using System.Threading.Tasks;
 
     public class PhotosController : BaseController
     {
