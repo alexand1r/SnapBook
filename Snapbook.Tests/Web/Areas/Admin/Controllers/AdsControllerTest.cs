@@ -83,9 +83,11 @@
             var result = await controller.Edit(4);
 
             // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             result
                 .Should()
-                .BeOfType<NotFoundResult>();
+                .BeOfType<RedirectToActionResult>();
+            Assert.Equal("NotFoundPage", redirectToActionResult.ActionName);
         }
 
         [Fact]

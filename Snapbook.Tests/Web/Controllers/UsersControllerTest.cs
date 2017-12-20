@@ -69,9 +69,11 @@
             var result = await controller.Profile("Username");
 
             // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             result
                 .Should()
-                .BeOfType<NotFoundResult>();
+                .BeOfType<RedirectToActionResult>();
+            Assert.Equal("NotFoundPage", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -113,9 +115,11 @@
             var result = await controller.Notifications("Username");
 
             // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             result
                 .Should()
-                .BeOfType<NotFoundResult>();
+                .BeOfType<RedirectToActionResult>();
+            Assert.Equal("NotFoundPage", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -156,9 +160,11 @@
             var result = await controller.Ad(4);
 
             // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             result
                 .Should()
-                .BeOfType<NotFoundResult>();
+                .BeOfType<RedirectToActionResult>();
+            Assert.Equal("NotFoundPage", redirectToActionResult.ActionName);
         }
 
         [Fact]
