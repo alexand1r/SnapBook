@@ -77,7 +77,7 @@
         
         @*DISPLAY BUTTONS FOR LIKE AND SAVE*@
         <div class="col-xs-12 home-photo-buttons">
-            <div id="ajaxLikeLink" class="likebutton col-xs-6">
+            <div id="ajaxLikeLink" class="likebutton col-xs-1" style="padding-right: 30px;">
                 @if (this.User.Identity.IsAuthenticated)
                 {
                     if (!Model.CanLike)
@@ -100,7 +100,7 @@
                     }
                 }
             </div>
-            <div id="ajaxSaveLink" class="savebutton col-xs-6 text-right">
+            <div id="ajaxSaveLink" class="savebutton col-xs-1 text-right">
                 @if (this.User.Identity.IsAuthenticated && this.User.Identity.Name != thePhoto.AlbumAuthor && this.User.Identity.Name != thePhoto.AdAuthor)
                 {
                     if (!Model.CanSave)
@@ -135,18 +135,25 @@
         
         @*DISPLAY CRUD BUTTONS*@
         <div class="col-xs-12 text-right" style="padding: 0;">
+            @if (Model.Photo.AlbumId != null)
+            {
+            <a asp-area="" asp-controller="Albums" asp-action="Details" asp-route-id="@thePhoto.AlbumId"
+               class="btn btn-success">
+                @thePhoto.AlbumTitle
+            </a>
+            }
+            @if (Model.Photo.AdId != null)
+            {
+            <a asp-area="" asp-controller="Users" asp-action="Ad" asp-route-id="@thePhoto.AdId"
+               class="btn btn-success">
+                @thePhoto.AdName
+            </a>
+            }
             @if (this.User.IsInRole(WebConstants.AdministratorRole) 
                  || (this.User.Identity.IsAuthenticated 
                      && (this.User.Identity.Name == thePhoto.AlbumAuthor 
                          || this.User.Identity.Name == thePhoto.AdAuthor)))
             {
-                if (Model.Photo.AlbumId != null)
-                {
-                    <a asp-area="" asp-controller="Albums" asp-action="Details" asp-route-id="@thePhoto.AlbumId"
-                        class="btn btn-success">
-                        @thePhoto.AlbumTitle
-                    </a>
-                }
                 <a asp-area="" asp-controller="Photos" asp-action="Edit" asp-route-id="@thePhoto.Id"
                    class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
             }

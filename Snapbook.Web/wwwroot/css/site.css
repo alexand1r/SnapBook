@@ -18,10 +18,17 @@ body {
     margin-bottom: 3px;
 }
 
-div, li, li:hover, li:focus, button, button:hover, 
-button:focus, a, a:hover, a:visited, a:focus {
-    text-decoration: none;
+div, li, li:hover, li:focus, button, a, a:hover, a:visited, a:focus {
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+.btn:focus {
     outline: none;
+}
+
+.btn-link:focus {
+    text-decoration: none;
 }
 
 /* Wrapping element */
@@ -243,6 +250,10 @@ footer {
 
 .home-photo-buttons {
     padding: 0;
+}
+
+.home-photo-buttons h3 {
+    width: fit-content;
 }
 
 .likebutton, .savebutton {

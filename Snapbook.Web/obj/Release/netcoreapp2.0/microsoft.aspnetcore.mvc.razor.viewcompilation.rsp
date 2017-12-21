@@ -39,6 +39,7 @@ C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web
 --file=C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web\Views\Account\SignedOut.cshtml
 --file=C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web\Views\Albums\Details.cshtml
 --file=C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web\Views\Home\Index.cshtml
+--file=C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web\Views\Home\NotFoundPage.cshtml
 --file=C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web\Views\Home\Search.cshtml
 --file=C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web\Views\Manage\ChangePassword.cshtml
 --file=C:\softuni\C# MVC Framework - ASP.NET Core\ExamProject\SnapBook\Snapbook.Web\Views\Manage\Disable2fa.cshtml

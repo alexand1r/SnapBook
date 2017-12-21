@@ -13,9 +13,22 @@ body {
     background: #eee !important;
 }
 
-a, a:hover, a:visited, a:focus {
-    text-decoration: none;
+.badge {
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+}
+
+div, li, li:hover, li:focus, button, a, a:hover, a:visited, a:focus {
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+.btn:focus {
     outline: none;
+}
+
+.btn-link:focus {
+    text-decoration: none;
 }
 
 /* Wrapping element */
@@ -60,6 +73,10 @@ footer {
 /* QR code generator */
 #qrCode {
     margin: 15px;
+}
+
+.current, .current > a {
+    color: white !important;
 }
 
 .admin-photo {
@@ -235,6 +252,10 @@ footer {
     padding: 0;
 }
 
+.home-photo-buttons h3 {
+    width: fit-content;
+}
+
 .likebutton, .savebutton {
     padding: 0;
 }
@@ -358,6 +379,11 @@ footer {
 
 .album-info {
     padding-bottom: 20px;
+}
+
+.home-photo-desc span {
+    color: cornflowerblue;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

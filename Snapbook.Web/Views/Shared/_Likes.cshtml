@@ -4,11 +4,11 @@
     style="width: fit-content;"
     data-toggle="tooltip" 
     data-placement="bottom" 
-    title="| 
-     @foreach (var user in Model)
-     {
-         @(user.Username + " | ")
-     }"
+    title="@(Model.Any() ? "| " : "")
+         @foreach (var user in Model)
+         {
+             @(user.Username + " | ")
+         }"
     >@Model.Count() likes</h5>
 
 <script>

@@ -67,19 +67,6 @@
             </p>
         </div>
         
-        <script>
-            $(document).on('click', '.show-@photo.Id', function () {
-                var span = $('.show-@photo.Id');
-                var desc = $('.desc-@photo.Id');
-                if (span.hasClass("showMore")) {
-                    desc.html('@photo.Description <span class="showLess show-@photo.Id">show less</span>');
-                }
-                else {
-                    desc.html('@photo.Description.CutText() <span class="showMore show-@photo.Id">show more</span>');
-                }
-            });
-        </script>
-
         <div class="home-photo-tags col-xs-12">
             @if (Model.Photo.Tags.Any())
             {
@@ -156,6 +143,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).on('click', '.show-@photo.Id', function () {
+        var span = $('.show-@photo.Id');
+        var desc = $('.desc-@photo.Id');
+        if (span.hasClass("showMore")) {
+            desc.html('@photo.Description <span class="showLess show-@photo.Id">show less</span>');
+        }
+        else {
+            desc.html('@photo.Description.CutText() <span class="showMore show-@photo.Id">show more</span>');
+        }
+    });
+</script>
 
 <script>
     var ajaxLikeSuccess_@photo.Id = function () {

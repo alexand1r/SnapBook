@@ -57,7 +57,7 @@
                 userId);
 
             this.TempData.AddSuccessMessage($"Album {model.Title} has been successfully created.");
-            return this.RedirectToAction("Index", "Home", new { area = "" });
+            return this.RedirectToAction("Profile", "Users", new { area = "", username = this.User.Identity.Name });
         }
 
         public async Task<IActionResult> Edit(int id)

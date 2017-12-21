@@ -36,7 +36,7 @@
         public async Task DeleteShouldReturnCorrectResults()
         {
             // Arrange
-            Tests.Initialize();
+            //Tests.Initialize();
             var adminCategoryService = new AdminCategoryService(this.db);
 
             // Act

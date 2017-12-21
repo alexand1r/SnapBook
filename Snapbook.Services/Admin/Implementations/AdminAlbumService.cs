@@ -28,7 +28,23 @@
                 return false;
             }
 
-            this.db.Albums.Remove(album);
+            var photos = this.db.Photos.Where(p => p.AlbumId == album.Id).ToList();
+            foreach (var photo in photos)
+            {
+                var likedPhotos = this.db.UsersLikedImages.Where(uli => uli.PhotoId == photo.Id).ToList();
+                foreach (var likedPhoto in likedPhotos)
+                {
+                    this.db.UsersLikedImages.Remove(likedPhoto);
+                }
+                var savedPhotos = this.db.UsersSavedImages.Where(usi => usi.PhotoId == photo.Id).ToList();
+                foreach (var savedPhoto in savedPhotos)
+                {
+                    this.db.UsersSavedImages.Remove(savedPhoto);
+                }
+                this.db.Photos.Remove(photo);
+            }
+
+            this.db.Remove(album);
             this.db.SaveChanges();
 
             return true;
